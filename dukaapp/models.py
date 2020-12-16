@@ -4,10 +4,6 @@ from django.db import models
 import cloudinary
 from cloudinary.models import CloudinaryField
 from tinymce.models import HTMLField
-
-
-# Create your models here.
-
 from django.core.mail import send_mail
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
@@ -15,6 +11,71 @@ from django.utils.translation import ugettext_lazy as _
 
 # from .managers import UserManager
 from django.contrib.auth.base_user import BaseUserManager
+
+
+# Create your models here.
+class Shop(models.Model):
+    merchant_name = models.CharField(max_length=100)
+    description = models.TextField()
+    date_started = models.DateTimeField(auto_now_add=True)
+    category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name='shop')
+
+  
+     def save_shop(self):
+            self.save()
+
+    def delete_delete(self):
+        self.delete()
+
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    sub_category = models.ForeignKey("Sub-Category", on_delete=models.CASCADE, related_name='category')
+    image = CloudinaryField('image')
+
+    def __str__(self):
+        return self.name
+    
+
+     def save_category(self):
+            self.save()
+
+    def delete_category(self):
+        self.delete()
+
+class Sub-Category(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    product = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='sub-category')
+
+    def __str__(self):
+        return self.name
+    
+     def save_sub-category(self):
+            self.save()
+
+    def delete_sub-category(self):
+        self.delete()
+
+
+class Product(models.Model):
+    item_name = models.CharField(max_length=100)
+    description = models.TextField()
+    price = models.IntegerField()
+    date_added = models.DateTimeField(auto_now_add=True)
+    image = CloudinaryField('image')
+    comment = models.ForeignKey("Comment", on_delete=models.CASCADE, related_name='product')
+
+
+    def __str__(self):
+        return self.item_name
+
+    def save_product(self):
+        self.save()
+
+    def delete_product(self):
+        self.delete()
+
+
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
