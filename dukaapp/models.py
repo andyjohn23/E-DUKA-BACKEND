@@ -4,6 +4,13 @@ from django.db import models
 import cloudinary
 from cloudinary.models import CloudinaryField
 from tinymce.models import HTMLField
+from django.core.mail import send_mail
+from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.utils.translation import ugettext_lazy as _
+
+# from .managers import UserManager
+from django.contrib.auth.base_user import BaseUserManager
 
 
 # Create your models here.
@@ -68,13 +75,7 @@ class Product(models.Model):
     def delete_product(self):
         self.delete()
 
-from django.core.mail import send_mail
-from django.contrib.auth.models import PermissionsMixin
-from django.contrib.auth.base_user import AbstractBaseUser
-from django.utils.translation import ugettext_lazy as _
 
-# from .managers import UserManager
-from django.contrib.auth.base_user import BaseUserManager
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
