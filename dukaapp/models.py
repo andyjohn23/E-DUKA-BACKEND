@@ -13,6 +13,13 @@ class Shop(models.Model):
     date_started = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name='shop')
 
+  
+     def save_shop(self):
+            self.save()
+
+    def delete_delete(self):
+        self.delete()
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
     sub_category = models.ForeignKey("Sub-Category", on_delete=models.CASCADE, related_name='category')
