@@ -97,6 +97,19 @@ class Profile (models.Model):
     def delete_profile(self):
         self.delete()
 
-
+class Role(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    is_admin = models.BooleanField( default=False)
+    is_merchant = models.BooleanField( default=False)
+    is_customer = models.BooleanField( default=False)
+    
+    def __str__(self):
+        return f'{self.user.last_name} Profile'
+    
+    def save_profile(self):
+        self.save
+        
+    def delete_profile(self):
+        self.delete()
         
                
