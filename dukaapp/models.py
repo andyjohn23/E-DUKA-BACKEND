@@ -22,6 +22,12 @@ class Sub-Category(models.Model):
 
     def __str__(self):
         return self.name
+    
+    #  def save_sub-category(self):
+    #         self.save()
+
+    # def delete_sub-category(self):
+    #     self.delete()
 
 
 class Product(models.Model):
