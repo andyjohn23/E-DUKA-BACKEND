@@ -38,3 +38,6 @@ class Product(models.Model):
 
     def save_product(self):
         self.save()
+
+    def delete_product(self):
+        self.delete()
