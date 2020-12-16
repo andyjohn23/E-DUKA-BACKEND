@@ -81,5 +81,22 @@ class User(AbstractBaseUser, PermissionsMixin):
         '''
         send_mail(subject, message, from_email, [self.email], **kwargs)
  
+class Profile (models.Model):
+    name = models.CharField(max_length=30)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    email = models.CharField(max_length=50)
+    status = models.BooleanField()
+    image = CloudinaryField('Profile pic', default = 'profile.jpg')
+    
+    def __str__(self):
+        return f'{self.user.last_name} Profile'
+    
+    def save_profile(self):
+        self.save
+        
+    def delete_profile(self):
+        self.delete()
+
+
         
                
