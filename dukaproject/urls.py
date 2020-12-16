@@ -14,8 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
+from django.contrib.auth import views
+from rest_framework.authtoken.views import obtain_auth_token
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('dukaapp.urls')),
+    path('tinymce/', include('tinymce.urls')),
+    path('api-token-auth/', obtain_auth_token)
 ]
+
+
+admin.site.index_title="E-DUKA LOGISTIC"
+admin.site.site_header="E-DUKA LOGISTIC Admin"
+admin.site.site_title="E-DUKA LOGISTIC"

@@ -50,6 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
+    is_staff = models.BooleanField(_('active'), default=True)
     is_active = models.BooleanField(_('active'), default=True)
     avatar = CloudinaryField('avatar', null=True, blank=True)
 
