@@ -38,6 +38,9 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_customer', True)
+        extra_fields.setdefault('is_merchant', True)
+        
 
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
@@ -50,7 +53,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
-    is_staff = models.BooleanField(_('active'), default=True)
+    is_staff = models.BooleanField( default=False)
+    is_merchant = models.BooleanField( default=False)
+    is_customer = models.BooleanField( default=False)
     is_active = models.BooleanField(_('active'), default=True)
     avatar = CloudinaryField('avatar', null=True, blank=True)
 
