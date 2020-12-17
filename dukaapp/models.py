@@ -21,39 +21,39 @@ class Shop(models.Model):
     category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name='shop')
 
   
-     def save_shop(self):
-            self.save()
+    def save_shop(self):
+        self.save()
 
     def delete_delete(self):
         self.delete()
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    sub_category = models.ForeignKey("Sub-Category", on_delete=models.CASCADE, related_name='category')
+    sub_category = models.ForeignKey("Sub_Category", on_delete=models.CASCADE, related_name='category')
     image = CloudinaryField('image')
 
     def __str__(self):
         return self.name
     
 
-     def save_category(self):
-            self.save()
+    def save_category(self):
+        self.save()
 
     def delete_category(self):
         self.delete()
 
-class Sub-Category(models.Model):
+class Sub_Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    product = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='sub-category')
+    product = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='sub_category')
 
     def __str__(self):
         return self.name
     
-     def save_sub-category(self):
-            self.save()
+    def save_sub_category(self):
+        self.save()
 
-    def delete_sub-category(self):
+    def delete_sub_category(self):
         self.delete()
 
 
@@ -63,7 +63,7 @@ class Product(models.Model):
     price = models.IntegerField()
     date_added = models.DateTimeField(auto_now_add=True)
     image = CloudinaryField('image')
-    comment = models.ForeignKey("Comment", on_delete=models.CASCADE, related_name='product')
+    # comment = models.ForeignKey("Comment", on_delete=models.CASCADE, related_name='product')
 
 
     def __str__(self):
