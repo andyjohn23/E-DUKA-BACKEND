@@ -40,3 +40,20 @@ class LogoutAPIView(generics.CreateAPIView):
             return Response(error_message,status=status.HTTP_400_BAD_REQUEST)
         return Response(success_message,status=status.HTTP_200_OK)
 
+class ProfileList(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+
+
+    def get_profile(self, pk):
+        try:
+            return AdminProfile.objects.get(pk=pk)
+        except AdminProfile.DoesNotExist:
+            raise Http404
+
+    def patch(self, request, pk, format=None):
+        profile = self.get_profile(pk)
+        serializers = ProfileSerializer(profile, request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data)
+
