@@ -11,3 +11,14 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ('user', 'profile_picture', 'bio')
 
 
+class UserSignupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email','first_name','last_name','password']
+        extra_kwargs={
+            'password':{'write_only':True}
+        }
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data.get('password'))
+        return super(UserSignupSerializer, self).create(validated_data)
+
