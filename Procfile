@@ -1,1 +1,1 @@
-web: gunicorn neighbourhood.wsgi --log-file -
+web: gunicorn dukaproject.wsgi --log-file -

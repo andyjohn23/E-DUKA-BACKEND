@@ -63,7 +63,7 @@ class Product(models.Model):
     price = models.IntegerField()
     date_added = models.DateTimeField(auto_now_add=True)
     image = CloudinaryField('image')
-    # comment = models.ForeignKey("Comment", on_delete=models.CASCADE, related_name='product')
+   
 
 
     def __str__(self):
@@ -99,6 +99,8 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_admin', True)
+        
 
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
@@ -111,9 +113,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
-    is_staff = models.BooleanField(_('active'), default=True)
-    is_active = models.BooleanField(_('active'), default=True)
-    avatar = CloudinaryField('avatar', null=True, blank=True)
+    is_admin = models.BooleanField( default=False)
+    is_staff = models.BooleanField( default=False)
+    is_active = models.BooleanField(_('active'), default=False)
+    roles = models.ManyToManyField(Role)
+    
 
     objects = UserManager()
 
@@ -144,11 +148,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         send_mail(subject, message, from_email, [self.email], **kwargs)
  
 class Profile (models.Model):
-    name = models.CharField(max_length=30)
+    username = models.CharField(max_length=30)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    email = models.CharField(max_length=50)
-    status = models.BooleanField()
-    image = CloudinaryField('Profile pic', default = 'profile.jpg')
+    avatar = CloudinaryField('avatar', null=True, blank=True)
+    address = models.CharField(max_length=30)
+    phone_number = models.IntegerField()
+    region = models.CharField(max_length=30)
     
     def __str__(self):
         return f'{self.user.last_name} Profile'
@@ -160,18 +165,50 @@ class Profile (models.Model):
         self.delete()
 
 class Role(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    is_admin = models.BooleanField( default=False)
-    is_merchant = models.BooleanField( default=False)
-    is_customer = models.BooleanField( default=False)
-    
-    def __str__(self):
-        return f'{self.user.last_name} Profile'
-    
-    def save_profile(self):
-        self.save
+  '''
+  The Role entries are managed by the system,
+  automatically created via a Django data migration.
+  '''
+  CUSTOMER = 1
+  MERCHANT = 2
+  ADMIN = 3
+  ROLE_CHOICES = (
+      (CUSTOMER, 'customer'),
+      (MERCHANT, 'merchant'),
+      (ADMIN, 'admin'),
+  )
+
+  id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
+
+  def __str__(self):
+      return self.get_id_display()
         
-    def delete_profile(self):
+class Comment(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    comment = models.TextField()
+    product-id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='comment')
+
+    def __str__(self):
+        return self.name
+    
+    def save_comment(self):
+        self.save()
+
+    def delete_comment(self):
+        self.delete()
+        
+class Order(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    date = models.DateTimeField(_('date of order'), auto_now_add=True)
+    product-id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='order')
+
+    def __str__(self):
+        return self.name
+    
+    def save_order(self):
+        self.save()
+
+    def delete_order(self):
         self.delete()
         
                
