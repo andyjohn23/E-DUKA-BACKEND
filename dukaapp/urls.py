@@ -3,7 +3,7 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from .views import UserViewSet
+from .views import *
 from django.contrib.auth.views import LoginView, LogoutView 
 from rest_framework import routers
 from rest_framework_simplejwt.views import (
@@ -12,6 +12,12 @@ from rest_framework_simplejwt.views import (
 )
 router = routers.DefaultRouter(trailing_slash=False)
 router.register('users', UserViewSet)
+router.register('shops', ShopViewSet)
+router.register('categories', CategoryViewSet)
+router.register('sub_categories', SubCategoryViewSet)
+router.register('products', ProductViewSet)
+router.register('orders', OrderViewSet)
+router.register('comments', CommentViewSet)
 
 # Users
 user_signup = UserViewSet.as_view({
