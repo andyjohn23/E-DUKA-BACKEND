@@ -8,13 +8,13 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
 
         model = Profile
-        fields = ('user', 'profile_picture', 'bio')
+        fields = ('id','user','username','avatar', 'address', 'phone_number','region')
 
 
 class UserSignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['email','first_name','last_name','password']
+        fields = ['id','email','first_name','last_name','password']
         extra_kwargs={
             'password':{'write_only':True}
         }
@@ -29,30 +29,30 @@ class LogoutSerializer(serializers.Serializer):
 class ShopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shop
-        fields = ['merchant_name','description','date_started','category']
+        fields = ['id','merchant_name','description','date_started','category']
         
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['name','sub_category','image']
+        fields = ['id','name','sub_category','image']
         
 class Sub_CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Sub_Category
-        fields = ['name','sub_category','product']
+        fields = ['id','name','sub_category','product']
         
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['item_name','description','price', 'date_added','image','comment']
+        fields = ['id','item_name','description','price', 'date_added','image','comment']
         
         
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = ['user','comment','product_id ']
+        fields = ['id','user','comment','product_id']
         
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ['user','date','product_id ']
+        fields = ['id','user','date','product_id']
