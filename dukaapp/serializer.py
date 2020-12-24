@@ -38,10 +38,16 @@ class CategorySerializer(serializers.ModelSerializer):
         
 class Sub_CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Category
+        model = Sub_Category
         fields = ['name','sub_category','product']
         
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Category
+        model = Product
         fields = ['item_name','description','price', 'date_added','image','comment']
+        
+        
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['user','comment','product_id ']
