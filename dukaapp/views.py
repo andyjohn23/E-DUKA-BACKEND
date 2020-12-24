@@ -85,4 +85,9 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     queryset = User.objects.all()
 
-
+class CommentViewSet(viewsets.ModelViewSet):
+    """
+    A viewset for viewing and editing category instances.
+    """
+    serializer_class = CommentSerializer
+    queryset = User.objects.all()
