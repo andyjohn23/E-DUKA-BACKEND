@@ -28,5 +28,10 @@ class LogoutSerializer(serializers.Serializer):
     
 class ShopSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = Shop
         fields = ['merchant_name','description','date_started','category']
+        
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['name','sub_category','image']
