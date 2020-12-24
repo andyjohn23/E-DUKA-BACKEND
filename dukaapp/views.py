@@ -59,9 +59,16 @@ class ProfileList(APIView):
         
 class ShopViewSet(viewsets.ModelViewSet):
     """
-    A viewset for viewing and editing user instances.
+    A viewset for viewing and editing shop instances.
     """
     serializer_class = ShopSerializer
+    queryset = User.objects.all()
+    
+class CategoryViewSet(viewsets.ModelViewSet):
+    """
+    A viewset for viewing and editing category instances.
+    """
+    serializer_class = CategorySerializer
     queryset = User.objects.all()
 
 
