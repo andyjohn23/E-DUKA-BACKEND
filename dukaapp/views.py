@@ -56,4 +56,12 @@ class ProfileList(APIView):
         if serializers.is_valid():
             serializers.save()
             return Response(serializers.data)
+        
+class ShopViewSet(viewsets.ModelViewSet):
+    """
+    A viewset for viewing and editing user instances.
+    """
+    serializer_class = ShopSerializer
+    queryset = User.objects.all()
+
 
