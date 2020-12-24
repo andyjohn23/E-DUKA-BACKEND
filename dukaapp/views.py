@@ -46,8 +46,8 @@ class ProfileList(APIView):
 
     def get_profile(self, pk):
         try:
-            return AdminProfile.objects.get(pk=pk)
-        except AdminProfile.DoesNotExist:
+            return Profile.objects.get(pk=pk)
+        except Profile.DoesNotExist:
             raise Http404
 
     def patch(self, request, pk, format=None):

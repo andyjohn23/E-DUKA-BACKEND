@@ -24,3 +24,9 @@ class UserSignupSerializer(serializers.ModelSerializer):
 
 class LogoutSerializer(serializers.Serializer):
     refresh_token=serializers.CharField()
+    
+    
+class ShopSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['merchant_name','description','date_started','category']
