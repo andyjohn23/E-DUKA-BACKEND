@@ -49,5 +49,10 @@ class ProductSerializer(serializers.ModelSerializer):
         
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Category
+        model = Comment
         fields = ['user','comment','product_id ']
+        
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['user','date','product_id ']
