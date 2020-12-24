@@ -91,3 +91,11 @@ class CommentViewSet(viewsets.ModelViewSet):
     """
     serializer_class = CommentSerializer
     queryset = User.objects.all()
+
+class OrderViewSet(viewsets.ModelViewSet):
+    """
+    A viewset for viewing and editing category instances.
+    """
+    serializer_class = OrderSerializer
+    queryset = User.objects.all()
+
