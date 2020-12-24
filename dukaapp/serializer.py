@@ -40,3 +40,8 @@ class Sub_CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['name','sub_category','product']
+        
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['item_name','description','price', 'date_added','image','comment']
