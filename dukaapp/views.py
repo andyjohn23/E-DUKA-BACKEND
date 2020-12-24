@@ -70,5 +70,19 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     serializer_class = CategorySerializer
     queryset = User.objects.all()
+    
+class SubCategoryViewSet(viewsets.ModelViewSet):
+    """
+    A viewset for viewing and editing category instances.
+    """
+    serializer_class = Sub_CategorySerializer
+    queryset = User.objects.all()
+    
+class ProductViewSet(viewsets.ModelViewSet):
+    """
+    A viewset for viewing and editing category instances.
+    """
+    serializer_class = ProductSerializer
+    queryset = User.objects.all()
 
 
