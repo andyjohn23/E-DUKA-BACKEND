@@ -63,7 +63,7 @@ class Product(models.Model):
     price = models.IntegerField()
     date_added = models.DateTimeField(auto_now_add=True)
     image = CloudinaryField('image')
-    # comment = models.ForeignKey("Comment", on_delete=models.CASCADE, related_name='product')
+    comment = models.ForeignKey("Comment", on_delete=models.CASCADE, related_name='product')
 
 
     def __str__(self):
