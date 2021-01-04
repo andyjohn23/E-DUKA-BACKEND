@@ -74,6 +74,26 @@ class Product(models.Model):
 
     def delete_product(self):
         self.delete()
+        
+class Role(models.Model):
+  '''
+  The Role entries are managed by the system,
+  automatically created via a Django data migration.
+  '''
+  CUSTOMER = 1
+  MERCHANT = 2
+  ADMIN = 3
+  ROLE_CHOICES = (
+      (CUSTOMER, 'customer'),
+      (MERCHANT, 'merchant'),
+      (ADMIN, 'admin'),
+  )
+
+  id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
+
+  def __str__(self):
+      return self.get_id_display()
+        
 
 
 
@@ -164,29 +184,11 @@ class Profile (models.Model):
     def delete_profile(self):
         self.delete()
 
-class Role(models.Model):
-  '''
-  The Role entries are managed by the system,
-  automatically created via a Django data migration.
-  '''
-  CUSTOMER = 1
-  MERCHANT = 2
-  ADMIN = 3
-  ROLE_CHOICES = (
-      (CUSTOMER, 'customer'),
-      (MERCHANT, 'merchant'),
-      (ADMIN, 'admin'),
-  )
 
-  id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
-
-  def __str__(self):
-      return self.get_id_display()
-        
 class Comment(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     comment = models.TextField()
-    product-id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='comment')
+    product_id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='prod')
 
     def __str__(self):
         return self.name
@@ -200,7 +202,7 @@ class Comment(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     date = models.DateTimeField(_('date of order'), auto_now_add=True)
-    product-id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='order')
+    product_id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='order')
 
     def __str__(self):
         return self.name
