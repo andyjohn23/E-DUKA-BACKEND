@@ -62,40 +62,40 @@ class ShopViewSet(viewsets.ModelViewSet):
     A viewset for viewing and editing shop instances.
     """
     serializer_class = ShopSerializer
-    queryset = User.objects.all()
+    queryset = Shop.objects.all()
     
 class CategoryViewSet(viewsets.ModelViewSet):
     """
     A viewset for viewing and editing category instances.
     """
     serializer_class = CategorySerializer
-    queryset = User.objects.all()
+    queryset = Category.objects.all()
     
 class SubCategoryViewSet(viewsets.ModelViewSet):
     """
     A viewset for viewing and editing category instances.
     """
     serializer_class = Sub_CategorySerializer
-    queryset = User.objects.all()
+    queryset = Sub_Category.objects.all()
     
 class ProductViewSet(viewsets.ModelViewSet):
     """
     A viewset for viewing and editing category instances.
     """
     serializer_class = ProductSerializer
-    queryset = User.objects.all()
+    queryset = Product.objects.all()
 
 class CommentViewSet(viewsets.ModelViewSet):
     """
     A viewset for viewing and editing category instances.
     """
     serializer_class = CommentSerializer
-    queryset = User.objects.all()
+    queryset = Comment.objects.all()
 
 class OrderViewSet(viewsets.ModelViewSet):
     """
     A viewset for viewing and editing category instances.
     """
     serializer_class = OrderSerializer
-    queryset = User.objects.all()
+    queryset = Order.objects.all()
 
