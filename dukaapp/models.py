@@ -32,7 +32,7 @@ class Category(models.Model):
     image = CloudinaryField('image')
 
     def __str__(self):
-        return self.name
+        return self.category
     
 
     def save_category(self):
