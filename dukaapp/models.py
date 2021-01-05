@@ -28,8 +28,7 @@ class Shop(models.Model):
         self.delete()
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
-    sub_category = models.ForeignKey("Sub_Category", on_delete=models.CASCADE, related_name='category')
+    category = models.CharField(max_length=100)
     image = CloudinaryField('image')
 
     def __str__(self):
@@ -137,7 +136,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     is_active = models.BooleanField(_('active'), default=True)
     is_staff = models.BooleanField( default=False)
-    avatar = CloudinaryField('avatar', null=True, blank=True)
+    roles = models.ManyToManyField(Role)
 
     objects = UserManager()
 
