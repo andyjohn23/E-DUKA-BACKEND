@@ -14,7 +14,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class UserSignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id','email','first_name','last_name','password']
+        fields = ['id','email','first_name','last_name','password','roles']
         extra_kwargs={
             'password':{'write_only':True}
         }
@@ -34,12 +34,12 @@ class ShopSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id','name','sub_category','image']
+        fields = ['id','category','image']
         
 class Sub_CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Sub_Category
-        fields = ['id','name','description','product']
+        fields = ['id','name','description','product','category']
         
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:

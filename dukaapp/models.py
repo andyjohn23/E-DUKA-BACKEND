@@ -28,12 +28,11 @@ class Shop(models.Model):
         self.delete()
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
-    sub_category = models.ForeignKey("Sub_Category", on_delete=models.CASCADE, related_name='category')
+    category = models.CharField(max_length=100)
     image = CloudinaryField('image')
 
     def __str__(self):
-        return self.name
+        return self.category
     
 
     def save_category(self):
@@ -46,6 +45,7 @@ class Sub_Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     product = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='sub_category')
+    category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name='sub_cate')
 
     def __str__(self):
         return self.name
@@ -63,7 +63,8 @@ class Product(models.Model):
     price = models.IntegerField()
     date_added = models.DateTimeField(auto_now_add=True)
     image = CloudinaryField('image')
-    comment = models.ForeignKey("Comment", on_delete=models.CASCADE, related_name='product', null=True)
+    category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name='categ')
+    # comment = models.ForeignKey("Comment", on_delete=models.CASCADE, related_name='product', null=True, blank=True)
 
 
     def __str__(self):
@@ -135,7 +136,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     is_active = models.BooleanField(_('active'), default=True)
     is_staff = models.BooleanField( default=False)
-    avatar = CloudinaryField('avatar', null=True, blank=True)
+    roles = models.ManyToManyField(Role)
 
     objects = UserManager()
 
@@ -186,10 +187,10 @@ class Profile (models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     comment = models.TextField()
-    product_id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='prod')
+    product_id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='comment')
 
     def __str__(self):
-        return self.name
+        return self.comment
     
     def save_comment(self):
         self.save()
