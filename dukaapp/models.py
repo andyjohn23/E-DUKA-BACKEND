@@ -30,7 +30,6 @@ class Shop(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=100)
     sub_category = models.ForeignKey("Sub_Category", on_delete=models.CASCADE, related_name='category')
-    image = CloudinaryField('image')
 
     def __str__(self):
         return self.name

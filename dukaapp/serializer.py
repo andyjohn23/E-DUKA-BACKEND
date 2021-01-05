@@ -34,7 +34,7 @@ class ShopSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id','name','sub_category','image']
+        fields = ['id','name','sub_category']
         
 class Sub_CategorySerializer(serializers.ModelSerializer):
     class Meta:
