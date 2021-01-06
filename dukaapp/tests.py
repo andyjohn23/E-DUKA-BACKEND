@@ -58,6 +58,13 @@ class Test_Create_Duka(TestCase):
         self.assertEqual(category,'electronics')
         self.assertEqual(str(name),'laptops')
 
+    def test_comment(self):
+        comment1 = Comment.objects.get(id=1)
+        comment = f'{comment1.comment}'
+        self.assertEqual(comment,'nice product')
+        self.assertEqual(str(comment),'nice product')
+
+
     
     
 
