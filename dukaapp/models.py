@@ -30,6 +30,7 @@ class Shop(models.Model):
 class Category(models.Model):
     category = models.CharField(max_length=100)
     image = CloudinaryField('image')
+    card = CloudinaryField('card')
 
     def __str__(self):
         return self.category
@@ -73,29 +74,6 @@ class Product(models.Model):
 
     def delete_product(self):
         self.delete()
-        
-class Role(models.Model):
-  '''
-  The Role entries are managed by the system,
-  automatically created via a Django data migration.
-  '''
-  CUSTOMER = 1
-  MERCHANT = 2
-  ADMIN = 3
-  ROLE_CHOICES = (
-      (CUSTOMER, 'customer'),
-      (MERCHANT, 'merchant'),
-      (ADMIN, 'admin'),
-  )
-
-  id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
-
-  def __str__(self):
-      return self.get_id_display()
-        
-
-
-
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -128,13 +106,23 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    
+    CUSTOMER = 1
+    MERCHANT = 2
+    ADMIN = 3
+    ROLE_CHOICES = (
+        (CUSTOMER, 'customer'),
+        (MERCHANT, 'merchant'),
+        (ADMIN, 'admin'),
+    )
+
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     is_active = models.BooleanField(_('active'), default=True)
     is_staff = models.BooleanField( default=False)
-    roles = models.ManyToManyField(Role)
+    user_type = models.IntegerField(choices=ROLE_CHOICES, null=True)
 
     objects = UserManager()
 

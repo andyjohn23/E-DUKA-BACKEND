@@ -13,12 +13,24 @@ from django.http import HttpResponse, Http404
 
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing and editing user instances.
-    """
+# class UserViewSet(viewsets.ModelViewSet):
+#     """
+#     A viewset for viewing and editing user instances.
+#     """
+#     serializer_class = UserSignupSerializer
+#     queryset = User.objects.all()
+    
+class SignupAPIView(generics.GenericAPIView):
     serializer_class = UserSignupSerializer
-    queryset = User.objects.all()
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        return Response({
+            "user": UserSignupSerializer(user,context=self.get_serializer_context()).data,
+            "token": AuthToken.objects.create(user)[1]
+        })
 
 class LogoutAPIView(generics.CreateAPIView):
     serializer_class=LogoutSerializer
