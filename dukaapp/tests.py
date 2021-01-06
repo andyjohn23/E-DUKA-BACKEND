@@ -4,7 +4,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-class Test_Create_Shop(TestCase):
+class Test_Create_Duka(TestCase):
 
     @classmethod
     def setUpTestData(cls):
@@ -46,6 +46,20 @@ class Test_Create_Shop(TestCase):
         self.assertEqual(category,'electronics')
         # self.assertEqual(image,'avatar.png')
         self.assertEqual(str(category),'electronics')
+    
+    def test_sub_category(self):
+        cat = Category.objects.get(id=1)
+        sub_cat = Sub_Category.objects.get(id=1)
+        name = f'{sub_cat.name}'
+        description = f'{sub_cat.description}'
+        category = f'{sub_cat.category}'
+        self.assertEqual(name,'laptops')
+        self.assertEqual(description,'nice product')
+        self.assertEqual(category,'electronics')
+        self.assertEqual(str(name),'laptops')
+
+    
+    
 
 
 
