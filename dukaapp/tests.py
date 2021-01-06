@@ -18,7 +18,7 @@ class Test_Create_Shop(TestCase):
         test_order = Order.objects.create(user=test_user1,product_id=test_product)
 
 
-    def test_product_content(self):
+    def test_product(self):
         product = Product.objects.get(pk=1)
         category = Category.objects.get(pk=1)
         sub_category = Sub_Category.objects.get(pk=1)
@@ -31,13 +31,21 @@ class Test_Create_Shop(TestCase):
         
         self.assertEqual(str(product),'laptop')
 
-    def test_shop_content(self):
+    def test_shop(self):
         shop = Shop.objects.get(id=1)
         category = Category.objects.get(pk=1)
         merchant_name = f'{shop.merchant_name}'
         description = f'{shop.description}'
         self.assertEqual(merchant_name,'collins')
         self.assertEqual(description,'electronics shop')
+
+    def test_category(self):
+        cat = Category.objects.get(id=1)
+        category = f'{cat.category}'
+        # image = f'{cat.image.url}'
+        self.assertEqual(category,'electronics')
+        # self.assertEqual(image,'avatar.png')
+        self.assertEqual(str(category),'electronics')
 
 
 
