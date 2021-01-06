@@ -1,5 +1,8 @@
 from django.test import TestCase
 from .models import Category,Sub_Category,Shop,Product,Comment,Order,User
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APITestCase
 
 class Test_Create_Shop(TestCase):
 
@@ -22,14 +25,26 @@ class Test_Create_Shop(TestCase):
         description = f'{product.description}'
         item_name = f'{product.item_name}'
         price = f'{product.price}'
-       
         self.assertEqual(description,'Hp laptop')
         self.assertEqual(item_name,'laptop')
         self.assertEqual(price,'5000')
         
         self.assertEqual(str(product),'laptop')
 
+    def test_shop_content(self):
+        shop = Shop.objects.get(id=1)
+        category = Category.objects.get(pk=1)
+        merchant_name = f'{shop.merchant_name}'
+        description = f'{shop.description}'
+        self.assertEqual(merchant_name,'collins')
+        self.assertEqual(description,'electronics shop')
 
 
-        
+
+# class ProductsTests(APITestCase):
+
+#     def test_view_products(self):
+#         url = reverse('products')
+#         response = self.client.get(url,format='json')
+#         self.assertEqual(response.status_code,status.HTTP_200_OK)
 
