@@ -37,12 +37,13 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ['id','category','image','card']
         
 class Sub_CategorySerializer(serializers.ModelSerializer):
-    category = serializers.CharField(source='category.category')
+    # category = serializers.CharField(source='category.category')
     class Meta:
         model = Sub_Category
         fields = ['id','name','description','category']
         
 class ProductSerializer(serializers.ModelSerializer):
+    sub_category = serializers.CharField(source='sub_category.name')
     class Meta:
         model = Product
         fields = ['id','item_name','description','price', 'date_added','image','sub_category']
