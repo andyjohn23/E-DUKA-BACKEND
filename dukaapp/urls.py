@@ -20,7 +20,7 @@ from rest_framework_simplejwt.views import (
 
 
 router = DefaultRouter()
-# router.register(r'users', UserViewSet)
+router.register(r'users', UserViewSet)
 router.register(r'shops', ShopViewSet)
 router.register(r'categories', CategoryViewSet)
 router.register(r'sub_categories', SubCategoryViewSet)
@@ -40,5 +40,10 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
     path('products/', views.ProductViewSet.as_view()),
     path('products/<int:pk>/', views.ProductDetail.as_view()),
+    path('comments/', views.CommentsViewSet.as_view()),
+    path('comments/<int:pk>/', views.CommentsDetail.as_view()),
+    path('orders/', views.OrdersViewSet.as_view()),
+    path('categories/', views.CategorysViewSet.as_view()),
+    path('shops/', views.ShopsViewSet.as_view()),
     
 ]
