@@ -6,7 +6,7 @@ from rest_framework import viewsets,status,generics
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework.permissions import IsAuthenticated
-from .permissions import IsAdminOrReadOnly
+from .permissions import *
 from django.http import HttpResponse, Http404
 import json
 
