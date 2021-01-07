@@ -24,7 +24,7 @@ router = DefaultRouter()
 router.register(r'shops', ShopViewSet)
 router.register(r'categories', CategoryViewSet)
 router.register(r'sub_categories', SubCategoryViewSet)
-router.register(r'products', ProductViewSet)
+router.register(r'products', ProductViewSets)
 router.register(r'orders', OrderViewSet)
 router.register(r'comments', CommentViewSet)
 
@@ -38,5 +38,7 @@ urlpatterns = [
     path('logout/',views.LogoutAPIView.as_view(),name='logout'),
     path('api/v1/profile/<pk>/',views.ProfileList.as_view()),
     path('api/v1/', include(router.urls)),
+    path('products/', views.ProductViewSet.as_view()),
+    path('products/<int:pk>/', views.ProductDetail.as_view()),
     
 ]
