@@ -173,10 +173,10 @@ class Profile (models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     comment = models.TextField()
-    product_id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='prod')
+    product_id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='comment')
 
     def __str__(self):
-        return self.name
+        return self.comment
     
     def save_comment(self):
         self.save()
