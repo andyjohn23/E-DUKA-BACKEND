@@ -18,7 +18,6 @@ class Shop(models.Model):
     merchant_name = models.CharField(max_length=100)
     description = models.TextField()
     date_started = models.DateTimeField(auto_now_add=True)
-    category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name='shop')
 
   
     def save_shop(self):
@@ -31,6 +30,7 @@ class Category(models.Model):
     category = models.CharField(max_length=100)
     image = CloudinaryField('image')
     card = CloudinaryField('card')
+    shop = models.ForeignKey("Shop", on_delete=models.CASCADE, related_name='shop')
 
     def __str__(self):
         return self.category
@@ -63,6 +63,12 @@ class Product(models.Model):
     price = models.IntegerField()
     date_added = models.DateTimeField(auto_now_add=True)
     image = CloudinaryField('image')
+    quantity = models.IntegerField(default=0)
+    color = models.CharField(max_length=100)
+    previous_price = models.IntegerField(blank=True)
+    shipped_from = models.CharField(max_length=100,default='e-duka')
+    size = models.CharField(max_length=100,blank=True)
+    brand = models.CharField(max_length=100, blank=True)
     sub_category = models.ForeignKey("Sub_Category", on_delete=models.CASCADE, related_name='sub_categ')
 
 
@@ -188,6 +194,7 @@ class Order(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     date = models.DateTimeField(_('date of order'), auto_now_add=True)
     product_id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='order')
+    delivered = models.BooleanField()
 
     def __str__(self):
         return self.name
