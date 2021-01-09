@@ -51,22 +51,21 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Sub_Category',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('description', models.TextField()),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='cate', to='dukaapp.category')),
-            ],
-        ),
-        migrations.CreateModel(
             name='Shop',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('merchant_name', models.CharField(max_length=100)),
                 ('description', models.TextField()),
                 ('date_started', models.DateTimeField(auto_now_add=True)),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='shop', to='dukaapp.category')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Sub_Category',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=100)),
+                ('description', models.TextField()),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='cate', to='dukaapp.category')),
             ],
         ),
         migrations.CreateModel(
@@ -90,6 +89,12 @@ class Migration(migrations.Migration):
                 ('price', models.IntegerField()),
                 ('date_added', models.DateTimeField(auto_now_add=True)),
                 ('image', cloudinary.models.CloudinaryField(max_length=255, verbose_name='image')),
+                ('quantity', models.IntegerField(default=0)),
+                ('color', models.CharField(max_length=100)),
+                ('previous_price', models.IntegerField(blank=True)),
+                ('shipped_from', models.CharField(default='e-duka', max_length=100)),
+                ('size', models.CharField(blank=True, max_length=100)),
+                ('brand', models.CharField(blank=True, max_length=100)),
                 ('sub_category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sub_categ', to='dukaapp.sub_category')),
             ],
         ),
@@ -110,5 +115,10 @@ class Migration(migrations.Migration):
                 ('product_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comment', to='dukaapp.product')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
+        ),
+        migrations.AddField(
+            model_name='category',
+            name='shop',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='shop', to='dukaapp.shop'),
         ),
     ]

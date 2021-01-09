@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'bootstrap3',
     'knox',
+    # 'django_filters',
 ]
 
 AUTH_USER_MODEL = 'dukaapp.User'
@@ -205,6 +206,11 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+    # 'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+    # 'DEFAULT_FILTER_BACKENDS': (
+    #     'rest_framework_filters.backends.DjangoFilterBackend', ...
+    # ),
+    
 }
 
 django_heroku.settings(locals())
