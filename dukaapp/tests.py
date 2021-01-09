@@ -174,7 +174,10 @@ class TestViews(TestSetUp):
         
         self.assertEqual(response.status_code,400)
 
-   
+     def test_user_can_register_with_data(self):
+            response = self.client.post(self.register_url,self.user_data,format='json')
+        
+        self.assertEqual(response.status_code,200)
 
 
 
