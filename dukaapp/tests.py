@@ -34,7 +34,10 @@ class SubCategoryTestClass(TestCase):
         sub_categories = Sub_Category.objects.all()
         self.assertTrue(len(sub_categories) > 0)
     
-   
+    def test_delete_sub_category(self):
+        self.sub_category1.delete_sub_category()
+        sub_categories = Sub_Category.objects.all()
+        self.assertTrue(len(sub_categories) - 1)
     
 class ProductTestClass(TestCase):
     
