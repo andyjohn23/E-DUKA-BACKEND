@@ -151,32 +151,21 @@ class UserTestClass(TestCase):
                     # view tests
 ############################################################################
 
-class TestSetUp(APITestCase):
+class RegistrationTestCase(APITestCase):
+    def test_user_can_register_with_no_data(self):
+        register_url = reverse('user_signup')
+        response = self.client.post(register_url)
+        self.assertEqual(response.status_code,400)
 
-    def setUp(self):
-        self.register_url = reverse('user_signup')
-        # self.login_url = reverse('')
-        self.user_data = {
+    def test_user_can_register_with_data(self):
+        register_url = reverse('user_signup')
+        user_data = {
             'first_name':'collins',
             'last_name':'kipkoech',
             'email':'colo@gmail.com',
             'password':'colo1234',
-            
         }
-        return super().setUp()
-
-    def tearDown(self):
-        return super().tearDown()
-
-class TestViews(TestSetUp):
-    def test_user_can_register_with_no_data(self):
-        response = self.client.post(self.register_url)
-        
-        self.assertEqual(response.status_code,400)
-
-     def test_user_can_register_with_data(self):
-            response = self.client.post(self.register_url,self.user_data,format='json')
-        
+        response = self.client.post(register_url,user_data,format='json')
         self.assertEqual(response.status_code,200)
 
 
