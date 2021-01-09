@@ -18,6 +18,12 @@ class CategoryTestClass(TestCase):
         categories = Category.objects.all()
         self.assertTrue(len(categories) > 0)
 
+    #Testing delete method
+    def test_delete_category(self):
+        self.category1.delete_category()
+        categories = Category.objects.all()
+        self.assertTrue(len(categories) - 1)
+
 class SubCategoryTestClass(TestCase):
     
     
