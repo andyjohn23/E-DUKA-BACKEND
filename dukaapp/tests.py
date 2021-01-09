@@ -95,6 +95,32 @@ class CommentTestClass(TestCase):
         self.assertTrue(len(comments) - 1)
 
 
+class OrderTestClass(TestCase):
+    
+    
+    def setUp(self):
+        self.category1= Category.objects.create(category='electronics',image='avatar.png')
+        self.sub_category1= Sub_Category.objects.create(name='laptops',description='brand new HP laptops',category=self.category1)
+        self.product1 = Product.objects.create(item_name='laptop',description='HP corei5, 2GB RAM',price=40000,image='avatar.png',sub_category=self.sub_category1)
+        self.user1 = User.objects.create(first_name='collins',last_name='kipkoech',email='colo@gmail.com')
+        self.order1 = Order.objects.create(user=self.user1,product_id=self.product1)
+    
+    def test_instance(self):
+        self.assertTrue(isinstance(self.order1,Order))
+
+    
+
+    def test_save_order(self):
+        self.order1.save_order()
+        orders = Order.objects.all()
+        self.assertTrue(len(orders) > 0)
+
+    def test_delete_order(self):
+        self.order1.delete_order()
+        orders = Order.objects.all()
+        self.assertTrue(len(orders) - 1)
+
+
 
 
 
