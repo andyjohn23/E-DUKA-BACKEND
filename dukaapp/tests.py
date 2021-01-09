@@ -120,6 +120,18 @@ class OrderTestClass(TestCase):
         orders = Order.objects.all()
         self.assertTrue(len(orders) - 1)
 
+class UserTestClass(TestCase):
+
+    def setUp(self):
+        self.user1 = User.objects.create(first_name='collins',last_name='kipkoech',email='colo@gmail.com')  
+    
+    def test_instance(self):
+        self.assertTrue(isinstance(self.user1,User))
+
+    
+
+    
+
 
 
 
