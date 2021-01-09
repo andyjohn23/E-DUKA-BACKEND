@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Category,Sub_Category,Shop,Product,Order,Comment,Profile
+from .models import Category,Sub_Category,Shop,Product,Order,Comment,Profile,User
 
 
 class CategoryTestClass(TestCase):
@@ -67,6 +67,35 @@ class ProductTestClass(TestCase):
         self.product1.delete_product()
         products = Product.objects.all()
         self.assertTrue(len(products) - 1)
+
+
+class CommentTestClass(TestCase):
+    
+    
+    def setUp(self):
+        self.category1= Category.objects.create(category='electronics',image='avatar.png')
+        self.sub_category1= Sub_Category.objects.create(name='laptops',description='brand new HP laptops',category=self.category1)
+        self.product1 = Product.objects.create(item_name='laptop',description='HP corei5, 2GB RAM',price=40000,image='avatar.png',sub_category=self.sub_category1)
+        self.user1 = User.objects.create(first_name='collins',last_name='kipkoech',email='colo@gmail.com')
+        self.comment1 = Comment.objects.create(user=self.user1,product_id=self.product1)
+    
+    def test_instance(self):
+        self.assertTrue(isinstance(self.comment1,Comment))
+
+    
+
+    def test_save_comment(self):
+        self.comment1.save_comment()
+        comments = Comment.objects.all()
+        self.assertTrue(len(comments) > 0)
+
+    def test_delete_comment(self):
+        self.comment1.delete_comment()
+        comments = Comment.objects.all()
+        self.assertTrue(len(comments) - 1)
+
+
+
 
 
 
