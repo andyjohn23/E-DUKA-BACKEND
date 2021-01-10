@@ -168,6 +168,10 @@ class UrlsTestCase(TestCase):
         response = self.client.get(reverse('categories'))
         self.assertEqual(response.status_code,200)
 
+    def test_shops_url(self):
+        response = self.client.get(reverse('shops'))
+        self.assertEqual(response.status_code,200)
+
     
 
 
