@@ -29,7 +29,7 @@ class LogoutSerializer(serializers.Serializer):
 class ShopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shop
-        fields = ['id','merchant_name','description','date_started','category']
+        fields = ['id','merchant_name','description','date_started']
         
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:

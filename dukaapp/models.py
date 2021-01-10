@@ -196,8 +196,7 @@ class Order(models.Model):
     product_id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='order')
     delivered = models.BooleanField()
 
-    def __str__(self):
-        return self.name
+    
     
     def save_order(self):
         self.save()

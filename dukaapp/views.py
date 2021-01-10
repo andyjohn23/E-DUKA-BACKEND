@@ -56,6 +56,7 @@ class LogoutAPIView(generics.CreateAPIView):
 class ProfileList(APIView):
     permission_classes = (IsAdminOrReadOnly,)
 
+
     def get_profile(self, pk):
         try:
             return Profile.objects.get(pk=pk)

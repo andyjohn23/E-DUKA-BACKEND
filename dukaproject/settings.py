@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'tinymce',
     'cloudinary',
     'rest_framework',
+    'drf_yasg',
     'rest_framework.authtoken',
     'bootstrap3',
     'knox',

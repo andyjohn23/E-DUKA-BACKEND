@@ -3,8 +3,11 @@ from rest_framework.test import APIClient,APITestCase
 from .models import Category,Sub_Category,Shop,Product,Order,Comment,Profile,User
 from django.urls import reverse
 from rest_framework import status
+import json
+from rest_framework.authtoken.models import Token
+from .serializer import *
 
-class ShopTestClass(TestCase):
+class ShopTestCase(TestCase):
 
     # Set up method
     def setUp(self):
@@ -19,7 +22,7 @@ class ShopTestClass(TestCase):
         self.shop1.save_shop()
         shops = Shop.objects.all()
         self.assertTrue(len(shops) > 0)
-class CategoryTestClass(TestCase):
+class CategoryTestCase(TestCase):
     
     # Set up method
     def setUp(self):
@@ -42,7 +45,7 @@ class CategoryTestClass(TestCase):
         categories = Category.objects.all()
         self.assertTrue(len(categories) - 1)
 
-class SubCategoryTestClass(TestCase):
+class SubCategoryTestCase(TestCase):
     
     def setUp(self):
         self.shop1= Shop.objects.create(merchant_name='collins',description='electronics shop')
@@ -62,7 +65,7 @@ class SubCategoryTestClass(TestCase):
         sub_categories = Sub_Category.objects.all()
         self.assertTrue(len(sub_categories) - 1)
     
-class ProductTestClass(TestCase):
+class ProductTestCase(TestCase):
     
     def setUp(self):
         self.shop1= Shop.objects.create(merchant_name='collins',description='electronics shop')
@@ -85,7 +88,7 @@ class ProductTestClass(TestCase):
         products = Product.objects.all()
         self.assertTrue(len(products) - 1)
 
-class CommentTestClass(TestCase):
+class CommentTestCase(TestCase):
      
     def setUp(self):
         self.shop1= Shop.objects.create(merchant_name='collins',description='electronics shop')
@@ -94,13 +97,11 @@ class CommentTestClass(TestCase):
         self.product1 = Product.objects.create(item_name='laptop',description='HP corei5, 2GB RAM',price=40000,
         image='avatar.png',shipped_from='e-duka',color='black',quantity=0,sub_category=self.sub_category1,
         previous_price=35000,size='12 inches',brand='HP')
-        self.user1 = User.objects.create(first_name='collins',last_name='kipkoech',email='colo@gmail.com')
+        self.user1 = User.objects.create_user(first_name='collins',last_name='kipkoech',email='colo@gmail.com')
         self.comment1 = Comment.objects.create(user=self.user1,product_id=self.product1)
     
     def test_instance(self):
         self.assertTrue(isinstance(self.comment1,Comment))
-
-    
 
     def test_save_comment(self):
         self.comment1.save_comment()
@@ -113,7 +114,7 @@ class CommentTestClass(TestCase):
         self.assertTrue(len(comments) - 1)
 
 
-class OrderTestClass(TestCase):
+class OrderTestCase(TestCase):
     
     
     def setUp(self):
@@ -123,7 +124,7 @@ class OrderTestClass(TestCase):
         self.product1 = Product.objects.create(item_name='laptop',description='HP corei5, 2GB RAM',price=40000,
         image='avatar.png',shipped_from='e-duka',color='black',quantity=0,sub_category=self.sub_category1,
         previous_price=35000,size='12 inches',brand='HP')
-        self.user1 = User.objects.create(first_name='collins',last_name='kipkoech',email='colo@gmail.com')
+        self.user1 = User.objects.create_user(first_name='collins',last_name='kipkoech',email='colo@gmail.com')
         self.order1 = Order.objects.create(user=self.user1,product_id=self.product1,delivered=1)
     
     def test_instance(self):
@@ -139,10 +140,10 @@ class OrderTestClass(TestCase):
         orders = Order.objects.all()
         self.assertTrue(len(orders) - 1)
 
-class UserTestClass(TestCase):
+class UserTestCase(TestCase):
 
     def setUp(self):
-        self.user1 = User.objects.create(first_name='collins',last_name='kipkoech',email='colo@gmail.com')  
+        self.user1 = User.objects.create_user(first_name='collins',last_name='kipkoech',email='colo@gmail.com')  
     
     def test_instance(self):
         self.assertTrue(isinstance(self.user1,User))
@@ -167,6 +168,24 @@ class RegistrationTestCase(APITestCase):
         }
         response = self.client.post(register_url,user_data,format='json')
         self.assertEqual(response.status_code,200)
+
+
+# class ProfileListTestCase(APITestCase):
+#     profile_url = reverse('profiles')
+#     def setUp(self):
+#         self.user = User.objects.create_user(first_name='collins',last_name='kipkoech',
+#         email='colo@gmail.com',password='colo1234')
+#         self.token = Token.objects.create(user=self.user)
+#         self.api_authentication()
+
+#     def api_authentication(self):
+#         self.client.credentials(HTTP_AUTHORIZATION='Token' + self.token.key)
+
+#     def test_profile_authenticated(self):
+#         response = self.client.get(self.profile_url)
+#         self.assertEqual(response.status_code,200)
+
+
 
 
 
