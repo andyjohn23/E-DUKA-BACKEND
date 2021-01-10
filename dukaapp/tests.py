@@ -1,11 +1,11 @@
 from django.test import TestCase
-from rest_framework.test import APIClient,APITestCase
+from rest_framework.test import APITestCase
 from .models import Category,Sub_Category,Shop,Product,Order,Comment,Profile,User
 from django.urls import reverse
 from rest_framework import status
 import json
 from rest_framework.authtoken.models import Token
-from .serializer import *
+from .serializer import ProfileSerializer
 
 class ShopTestCase(TestCase):
 
@@ -149,6 +149,14 @@ class UserTestCase(TestCase):
         self.assertTrue(isinstance(self.user1,User))
 
 ############################################################################
+                    # URLS tests
+############################################################################
+class UrlsTestCase(TestCase):
+    def test_products_url(self):
+        response = self.client.get('/products/')
+        self.assertEqual(response.status_code,200)
+
+############################################################################
                     # view tests
 ############################################################################
 
@@ -159,31 +167,22 @@ class RegistrationTestCase(APITestCase):
         self.assertEqual(response.status_code,400)
 
     def test_user_can_register_with_data(self):
-        register_url = reverse('user_signup')
+        url = reverse('user_signup')
         user_data = {
             'first_name':'collins',
             'last_name':'kipkoech',
-            'email':'colo@gmail.com',
-            'password':'colo1234',
+            'email':'test@gmail.com',
+            'password':'test1234',
+            
         }
-        response = self.client.post(register_url,user_data,format='json')
+        response = self.client.post(url,user_data,format='json')
         self.assertEqual(response.status_code,200)
 
 
-# class ProfileListTestCase(APITestCase):
-#     profile_url = reverse('profiles')
-#     def setUp(self):
-#         self.user = User.objects.create_user(first_name='collins',last_name='kipkoech',
-#         email='colo@gmail.com',password='colo1234')
-#         self.token = Token.objects.create(user=self.user)
-#         self.api_authentication()
+       
 
-#     def api_authentication(self):
-#         self.client.credentials(HTTP_AUTHORIZATION='Token' + self.token.key)
 
-#     def test_profile_authenticated(self):
-#         response = self.client.get(self.profile_url)
-#         self.assertEqual(response.status_code,200)
+
 
 
 
