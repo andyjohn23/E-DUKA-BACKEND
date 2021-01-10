@@ -153,9 +153,17 @@ class UserTestCase(TestCase):
 ############################################################################
 class UrlsTestCase(TestCase):
     def test_products_url(self):
-        response = self.client.get('/products/')
+        response = self.client.get(reverse('products'))
         self.assertEqual(response.status_code,200)
 
+    def test_comments_url(self):
+        response = self.client.get(reverse('comments'))
+        self.assertEqual(response.status_code,200)
+
+    
+
+
+  
 ############################################################################
                     # view tests
 ############################################################################
