@@ -170,10 +170,7 @@ class UrlsTestCase(TestCase):
         self.assertEqual(response.status_code,200)
 
 
-class TestUrls(SimpleTestCase):
-    def test_products_details_url(self):
-        url = reverse('productdetails', kwargs={'pk':1,})
-        self.assertEqual(resolve(url).func.view_class,ProductDetail)
+
 
     
   
