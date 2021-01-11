@@ -16,7 +16,7 @@ before_script:
   -  pip install coverage
 
 script:
-  - python manage.py test
+  - python manage.py test dukaapp
   # - coverage run --source='.' manage.py test app
 
 # after_success:
