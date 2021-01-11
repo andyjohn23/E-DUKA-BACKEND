@@ -42,8 +42,10 @@ urlpatterns = [
     path('products/<int:pk>/', views.ProductDetail.as_view(),name='productdetails'),
     path('comments/', views.CommentsViewSet.as_view(),name='comments'),
     path('comments/<int:pk>/', views.CommentsDetail.as_view()),
-    path('orders/', views.OrdersViewSet.as_view(),name='orders'),
-    path('categories/', views.CategorysViewSet.as_view(),name='categories'),
-    path('shops/', views.ShopsViewSet.as_view(),name='shops'),
+    path('orders/', views.OrdersViewSet.as_view()),
+    path('categories/', views.CategorysViewSet.as_view()),
+    path('shops/', views.ShopsViewSet.as_view()),
+    path('filter_sub_category/<int:pk>/', views.ProductSubcategory.as_view()),
     
 ]
+ProductSubcategory

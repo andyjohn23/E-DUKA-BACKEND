@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'bootstrap3',
     'knox',
+    'django_readonly_field',
     # 'django_filters',
 ]
 
