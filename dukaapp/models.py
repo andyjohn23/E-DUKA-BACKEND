@@ -15,9 +15,13 @@ from django.contrib.auth.base_user import BaseUserManager
 
 # Create your models here.
 class Shop(models.Model):
-    merchant_name = models.CharField(max_length=100)
+    store_name = models.CharField(max_length=100)
     description = models.TextField()
     date_started = models.DateTimeField(auto_now_add=True)
+    address = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    phone_no = models.IntegerField()
 
   
     def save_shop(self):
@@ -63,9 +67,12 @@ class Product(models.Model):
     price = models.IntegerField()
     date_added = models.DateTimeField(auto_now_add=True)
     image = CloudinaryField('image')
+    image1 = CloudinaryField('image_2')
+    image2 = CloudinaryField('image_3')
+    image3 = CloudinaryField('image_4')
     quantity = models.IntegerField(default=0)
     color = models.CharField(max_length=100)
-    previous_price = models.IntegerField(blank=True)
+    previous_price = models.IntegerField(blank=True,null=True)
     shipped_from = models.CharField(max_length=100,default='e-duka')
     size = models.CharField(max_length=100,blank=True)
     brand = models.CharField(max_length=100, blank=True)
