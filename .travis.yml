@@ -8,12 +8,12 @@ python:
 
 install: 
   - pip install -r requirements.txt 
-  - pip install coveralls
+  # - pip install coveralls
 
-before_script: 
-  - psql -c "CREATE DATABASE test_duka;" -U postgres
-  - psql -c "GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public to postgres ;" -U postgres
-  -  pip install coverage
+# before_script: 
+#   - psql -c "CREATE DATABASE test_duka;" -U postgres
+#   - psql -c "GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public to postgres ;" -U postgres
+#   -  pip install coverage
 
 script:
   - python manage.py test dukaapp
