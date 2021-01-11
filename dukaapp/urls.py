@@ -39,7 +39,7 @@ urlpatterns = [
     path('api/v1/profile/<pk>/',views.ProfileList.as_view()),
     path('api/v1/', include(router.urls)),
     path('products/', views.ProductViewSet.as_view(),name='products'),
-    path('products/<int:pk>/', views.ProductDetail.as_view(),name='productDetails'),
+    path('products/<int:pk>/', views.ProductDetail.as_view(),name='productdetails'),
     path('comments/', views.CommentsViewSet.as_view(),name='comments'),
     path('comments/<int:pk>/', views.CommentsDetail.as_view()),
     path('orders/', views.OrdersViewSet.as_view(),name='orders'),

@@ -1,11 +1,12 @@
-from django.test import TestCase
+from django.test import TestCase,SimpleTestCase
 from rest_framework.test import APITestCase
 from .models import Category,Sub_Category,Shop,Product,Order,Comment,Profile,User
-from django.urls import reverse
+from django.urls import reverse,resolve
 from rest_framework import status
 import json
 from rest_framework.authtoken.models import Token
 from .serializer import ProfileSerializer
+from .views import ProductDetail
 
 class ShopTestCase(TestCase):
 
@@ -24,22 +25,18 @@ class ShopTestCase(TestCase):
         self.assertTrue(len(shops) > 0)
 class CategoryTestCase(TestCase):
     
-    # Set up method
     def setUp(self):
         self.shop1= Shop.objects.create(merchant_name='collins',description='electronics shop')
         self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png',shop=self.shop1)
         
-    # Testing  instance
     def test_instance(self):
         self.assertTrue(isinstance(self.category1,Category))
 
-    # Testing Save Method
     def test_save_category(self):
         self.category1.save_category()
         categories = Category.objects.all()
         self.assertTrue(len(categories) > 0)
 
-    #Testing delete method
     def test_delete_category(self):
         self.category1.delete_category()
         categories = Category.objects.all()
@@ -172,9 +169,13 @@ class UrlsTestCase(TestCase):
         response = self.client.get(reverse('shops'))
         self.assertEqual(response.status_code,200)
 
+
+class TestUrls(SimpleTestCase):
+    def test_products_details_url(self):
+        url = reverse('productdetails', kwargs={'pk':1,})
+        self.assertEqual(resolve(url).func.view_class,ProductDetail)
+
     
-
-
   
 ############################################################################
                     # view tests
