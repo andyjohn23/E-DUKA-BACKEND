@@ -6,14 +6,17 @@ services:
 python:
   - "3.6"
 
+virtual:
+  - SECRET_KEY:'TEST'
+
 install: 
   - pip install -r requirements.txt 
-  # - pip install coveralls
+  - pip install coveralls
 
 script:
     
     - python manage.py test dukaapp
-  # - coverage run --source='.' manage.py test app
+    - coverage run --source='.' manage.py test
 
-# after_success:
-#   - coveralls
+after_success:
+  - coveralls
