@@ -6,8 +6,6 @@ services:
 python:
   - "3.6"
 
-virtual:
-  - SECRET_KEY:'TEST'
 
 install: 
   - pip install -r requirements.txt 
