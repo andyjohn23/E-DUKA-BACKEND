@@ -23,22 +23,25 @@ class Shop(models.Model):
     country = models.CharField(max_length=100)
     phone_no = models.IntegerField()
 
-  
+    def __str__(self):
+        return self.store_name
+
     def save_shop(self):
         self.save()
 
     def delete_delete(self):
         self.delete()
 
+
 class Category(models.Model):
     category = models.CharField(max_length=100)
     image = CloudinaryField('image')
     card = CloudinaryField('card')
-    shop = models.ForeignKey("Shop", on_delete=models.CASCADE, related_name='shop')
+    shop = models.ForeignKey(
+        "Shop", on_delete=models.CASCADE, related_name='shop')
 
     def __str__(self):
         return self.category
-    
 
     def save_category(self):
         self.save()
@@ -46,14 +49,16 @@ class Category(models.Model):
     def delete_category(self):
         self.delete()
 
+
 class Sub_Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    category = models.ForeignKey("Category", on_delete=models.CASCADE, related_name='cate')
+    category = models.ForeignKey(
+        "Category", on_delete=models.CASCADE, related_name='cate')
 
     def __str__(self):
         return self.name
-    
+
     def save_sub_category(self):
         self.save()
 
@@ -67,17 +72,17 @@ class Product(models.Model):
     price = models.IntegerField()
     date_added = models.DateTimeField(auto_now_add=True)
     image = CloudinaryField('image')
-    image1 = CloudinaryField('image_2')
-    image2 = CloudinaryField('image_3')
-    image3 = CloudinaryField('image_4')
+    image1 = CloudinaryField('image_2', blank=True, null=True)
+    image2 = CloudinaryField('image_3', blank=True, null=True)
+    image3 = CloudinaryField('image_4', blank=True, null=True)
     quantity = models.IntegerField(default=0)
-    color = models.CharField(max_length=100)
-    previous_price = models.IntegerField(blank=True,null=True)
-    shipped_from = models.CharField(max_length=100,default='e-duka')
-    size = models.CharField(max_length=100,blank=True)
+    color = models.CharField(max_length=100, blank=True, null=True)
+    previous_price = models.IntegerField(blank=True, null=True)
+    shipped_from = models.CharField(max_length=100, default='e-duka')
+    size = models.CharField(max_length=100, blank=True)
     brand = models.CharField(max_length=100, blank=True)
-    sub_category = models.ForeignKey("Sub_Category", on_delete=models.CASCADE, related_name='sub_categ')
-
+    sub_category = models.ForeignKey(
+        "Sub_Category", on_delete=models.CASCADE, related_name='sub_categ')
 
     def __str__(self):
         return self.item_name
@@ -87,6 +92,11 @@ class Product(models.Model):
 
     def delete_product(self):
         self.delete()
+
+    class ReadonlyMeta:
+     readonly = ["shipped_from"]
+
+
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -112,14 +122,14 @@ class UserManager(BaseUserManager):
 
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
-        
-        print("email...",email)
-        print("password...",password)
+
+        print("email...", email)
+        print("password...", password)
         return self._create_user(email, password=password, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    
+
     CUSTOMER = 1
     MERCHANT = 2
     ADMIN = 3
@@ -134,7 +144,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     is_active = models.BooleanField(_('active'), default=True)
-    is_staff = models.BooleanField( default=False)
+    is_staff = models.BooleanField(default=False)
     user_type = models.IntegerField(choices=ROLE_CHOICES, null=True)
 
     objects = UserManager()
@@ -164,52 +174,54 @@ class User(AbstractBaseUser, PermissionsMixin):
         Sends an email to this User.
         '''
         send_mail(subject, message, from_email, [self.email], **kwargs)
- 
+
+
 class Profile (models.Model):
     username = models.CharField(max_length=30)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     avatar = CloudinaryField('avatar', null=True, blank=True)
     address = models.CharField(max_length=30)
     phone_number = models.IntegerField()
     region = models.CharField(max_length=30)
-    
+
     def __str__(self):
         return f'{self.user.last_name} Profile'
-    
+
     def save_profile(self):
         self.save
-        
+
     def delete_profile(self):
         self.delete()
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.TextField()
-    product_id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='comment')
+    product_id = models.ForeignKey(
+        "Product", on_delete=models.CASCADE, related_name='comment')
 
     def __str__(self):
         return self.comment
-    
+
     def save_comment(self):
         self.save()
 
     def delete_comment(self):
         self.delete()
-        
+
+
 class Order(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(_('date of order'), auto_now_add=True)
-    product_id = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='order')
+    product_id = models.ForeignKey(
+        "Product", on_delete=models.CASCADE, related_name='order')
     delivered = models.BooleanField()
 
     def __str__(self):
         return self.name
-    
+
     def save_order(self):
         self.save()
 
     def delete_order(self):
         self.delete()
-        
-               
