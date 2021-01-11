@@ -10,13 +10,15 @@ install:
   - pip install -r requirements.txt 
   # - pip install coveralls
 
-# before_script: 
-#   - psql -c "CREATE DATABASE test_duka;" -U postgres
+before_script: 
+  - psql -c "CREATE DATABASE travis_test;" -U postgres
 #   - psql -c "GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public to postgres ;" -U postgres
 #   -  pip install coverage
 
 script:
-  - python manage.py test dukaapp
+    - python manage.py makemigrations
+    - python manage.py migrate
+    - python manage.py test dukaapp
   # - coverage run --source='.' manage.py test app
 
 # after_success:
