@@ -16,8 +16,7 @@ before_script:
 #   -  pip install coverage
 
 script:
-    - python manage.py makemigrations
-    - python manage.py migrate
+    
     - python manage.py test dukaapp
   # - coverage run --source='.' manage.py test app
 
