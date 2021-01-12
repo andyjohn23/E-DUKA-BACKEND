@@ -3,7 +3,7 @@ from .models import *
 from django.contrib.auth.hashers import make_password
 
 class ProfileSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    # user = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
 
@@ -55,6 +55,7 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = ['id','user','comment','product_id']
         
 class OrderSerializer(serializers.ModelSerializer):
+    product_id=serializers.ListField(child=serializers.CharField(max_length=32, allow_blank=True))
     class Meta:
         model = Order
-        fields = ['id','user','date','product_id']
+        fields = ['id','user','date','product_id','delivered']

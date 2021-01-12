@@ -56,9 +56,6 @@ class LogoutAPIView(generics.CreateAPIView):
         return Response(success_message,status=status.HTTP_200_OK)
 
 class ProfileList(APIView):
-    permission_classes = (IsAdminOrReadOnly,)
-
-
     def get_profile(self, pk):
         try:
             return Profile.objects.get(pk=pk)
@@ -253,6 +250,20 @@ class ProductSubcategory(ListAPIView):
         serializer = self.serializer_class(queryset, many=True,
                                                context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class SubcategoryCategory(ListAPIView):
+    serializer_class = Sub_CategorySerializer
+    queryset= Sub_Category.objects.all()
+    
+    def get(self, request, category_id, *args, **kwargs): 
+        category = get_object_or_404(Category, pk=category_id)
+        queryset = Sub_Category.objects.filter(category=category)
+        if not queryset:
+            message = {"error": "Sub_Category doesn’t exist"}
+            return Response(message, status.HTTP_404_NOT_FOUND)
+        serializer = self.serializer_class(queryset, many=True,
+                                               context={'request': request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ProductCategory(ListAPIView):
     serializer_class = ProductSerializer
@@ -267,4 +278,10 @@ class ProductCategory(ListAPIView):
         serializer = self.serializer_class(products, many=True,
                                                context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class ProductSearchApiView(generics.ListAPIView):
+    queryset=Product.objects.all()
+    serializer_class=ProductSerializer
+    filter_backends=[filters.SearchFilter]
+    search_fields=['item_name']
 

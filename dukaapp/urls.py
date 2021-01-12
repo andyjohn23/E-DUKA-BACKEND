@@ -32,7 +32,7 @@ router.register(r'comments', CommentViewSet)
 
 urlpatterns = [
     path('auth/signup/', SignupAPIView.as_view(), name='user_signup'),
-    path('api/adminprofile/', views.ProfileList.as_view(),name='adminprofiles'),
+    path('api/v1/profile/', views.ProfileList.as_view(),name='profiles'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('logout/',views.LogoutAPIView.as_view(),name='logout'),
@@ -46,7 +46,7 @@ urlpatterns = [
     path('categories/', views.CategorysViewSet.as_view()),
     path('shops/', views.ShopsViewSet.as_view()),
     path('filter_sub_category/<int:category_id>/', views.ProductSubcategory.as_view()),
+    path('category_filter/<int:category_id>/', views.SubcategoryCategory.as_view()),
     path('filter_category/<int:category_id>/', views.ProductCategory.as_view()),
-    
+    path('search/', views.ProductSearchApiView.as_view()),
 ]
-ProductSubcategory
