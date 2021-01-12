@@ -40,7 +40,7 @@ class Sub_CategorySerializer(serializers.ModelSerializer):
     # category = serializers.CharField(source='category.category')
     class Meta:
         model = Sub_Category
-        fields = ['id','name','description','category']
+        fields = ['id','name','description','category','image2']
         
 class ProductSerializer(serializers.ModelSerializer):
     # shipped_from = serializers.CharField(source='shipped_from.store_name')
