@@ -53,6 +53,7 @@ class Sub_Category(models.Model):
     description = models.TextField()
     category = models.ForeignKey(
         "Category", on_delete=models.CASCADE, related_name='cate')
+    image2 = CloudinaryField('image_2', blank=True, null=True)
 
     def __str__(self):
         return self.name
