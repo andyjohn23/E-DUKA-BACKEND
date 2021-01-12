@@ -78,7 +78,7 @@ class Product(models.Model):
     quantity = models.IntegerField(default=0)
     color = models.CharField(max_length=100, blank=True, null=True)
     previous_price = models.IntegerField(blank=True, null=True)
-    shipped_from = models.CharField(max_length=100, default='e-duka')
+    # shipped_from = models.CharField(max_length=100, default='e-duka')
     size = models.CharField(max_length=100, blank=True)
     brand = models.CharField(max_length=100, blank=True)
     sub_category = models.ForeignKey(
@@ -87,8 +87,8 @@ class Product(models.Model):
     def __str__(self):
         return self.item_name
     
-    class ReadonlyMeta:
-        readonly = ["shipped_from"]
+    # class ReadonlyMeta:
+    #     readonly = ["shipped_from"]
 
     def save_product(self):
         self.save()

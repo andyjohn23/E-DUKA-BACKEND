@@ -66,90 +66,91 @@ class SubCategoryTestCase(TestCase):
         sub_categories = Sub_Category.objects.all()
         self.assertTrue(len(sub_categories) - 1)
     
-# class ProductTestCase(TestCase):
+class ProductTestCase(TestCase):
     
-#     def setUp(self):
-#         self.shop1= Shop.objects.create(store_name='electonics shop',description='sells electronics',
-#         address='0100',city='Nairobi',country='Kenya',phone_no='0700000000')
-#         self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png',shop=self.shop1)
-#         self.sub_category1= Sub_Category.objects.create(name='laptops',description='brand new HP laptops',category=self.category1)
-#         self.product1 = Product.objects.create(item_name='laptop',description='HP corei5, 2GB RAM',price=40000,
-#         image='avatar.png',image1='avatar.png',image2='avatar.png',image3='avatar.png'
-#         ,color='black',quantity=0,sub_category=self.sub_category1,
-#         previous_price=35000,shipped_from='e_duka',size='12 inches',brand='HP')
+    def setUp(self):
+        self.shop1= Shop.objects.create(store_name='electonics shop',description='sells electronics',
+        address='0100',city='Nairobi',country='Kenya',phone_no='0700000000')
+        self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png',shop=self.shop1)
+        self.sub_category1= Sub_Category.objects.create(name='laptops',description='brand new HP laptops',category=self.category1)
+        self.product1 = Product.objects.create(item_name='laptop',description='HP corei5, 2GB RAM',price=40000,
+        image='avatar.png',image1='avatar.png',image2='avatar.png',image3='avatar.png'
+        ,color='black',quantity=0,sub_category=self.sub_category1,
+        previous_price=35000,size='12 inches',brand='HP')
     
-#     def test_instance(self):
-#         self.assertTrue(isinstance(self.product1,Product))
+    def test_instance(self):
+        self.assertTrue(isinstance(self.product1,Product))
 
-#     def test_save_product(self):
-#         self.product1.save_product()
-#         products = Product.objects.all()
-#         self.assertTrue(len(products) > 0)
+    def test_save_product(self):
+        self.product1.save_product()
+        products = Product.objects.all()
+        self.assertTrue(len(products) > 0)
 
-#     def test_delete_product(self):
-#         self.product1.delete_product()
-#         products = Product.objects.all()
-#         self.assertTrue(len(products) - 1)
+    def test_delete_product(self):
+        self.product1.delete_product()
+        products = Product.objects.all()
+        self.assertTrue(len(products) - 1)
 
-# class CommentTestCase(TestCase):
+class CommentTestCase(TestCase):
      
-#     def setUp(self):
-#         self.shop1= Shop.objects.create(merchant_name='collins',description='electronics shop')
-#         self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png',shop=self.shop1)
-#         self.sub_category1= Sub_Category.objects.create(name='laptops',description='brand new HP laptops',category=self.category1)
-#         self.product1 = Product.objects.create(item_name='laptop',description='HP corei5, 2GB RAM',price=40000,
-#         image='avatar.png',shipped_from='e-duka',color='black',quantity=0,sub_category=self.sub_category1,
-#         previous_price=35000,size='12 inches',brand='HP')
-#         self.user1 = User.objects.create_user(first_name='collins',last_name='kipkoech',email='colo@gmail.com')
-#         self.comment1 = Comment.objects.create(user=self.user1,product_id=self.product1)
+    def setUp(self):
+        self.shop1= Shop.objects.create(store_name='electonics shop',description='sells electronics',
+        address='0100',city='Nairobi',country='Kenya',phone_no='0700000000')
+        self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png',shop=self.shop1)
+        self.sub_category1= Sub_Category.objects.create(name='laptops',description='brand new HP laptops',category=self.category1)
+        self.product1 = Product.objects.create(item_name='laptop',description='HP corei5, 2GB RAM',price=40000,
+        image='avatar.png',color='black',quantity=0,sub_category=self.sub_category1,
+        previous_price=35000,size='12 inches',brand='HP')
+        self.user1 = User.objects.create_user(first_name='collins',last_name='kipkoech',email='colo@gmail.com')
+        self.comment1 = Comment.objects.create(user=self.user1,product_id=self.product1)
     
-#     def test_instance(self):
-#         self.assertTrue(isinstance(self.comment1,Comment))
+    def test_instance(self):
+        self.assertTrue(isinstance(self.comment1,Comment))
 
-#     def test_save_comment(self):
-#         self.comment1.save_comment()
-#         comments = Comment.objects.all()
-#         self.assertTrue(len(comments) > 0)
+    def test_save_comment(self):
+        self.comment1.save_comment()
+        comments = Comment.objects.all()
+        self.assertTrue(len(comments) > 0)
 
-#     def test_delete_comment(self):
-#         self.comment1.delete_comment()
-#         comments = Comment.objects.all()
-#         self.assertTrue(len(comments) - 1)
+    def test_delete_comment(self):
+        self.comment1.delete_comment()
+        comments = Comment.objects.all()
+        self.assertTrue(len(comments) - 1)
 
 
-# class OrderTestCase(TestCase):
+class OrderTestCase(TestCase):
     
+    def setUp(self):
+        self.shop1= Shop.objects.create(store_name='electonics shop',description='sells electronics',
+        address='0100',city='Nairobi',country='Kenya',phone_no='0700000000')
+        self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png',shop=self.shop1)
+        self.sub_category1= Sub_Category.objects.create(name='laptops',description='brand new HP laptops',category=self.category1)
+        self.product1 = Product.objects.create(item_name='laptop',description='HP corei5, 2GB RAM',price=40000,
+        image='avatar.png',color='black',quantity=0,sub_category=self.sub_category1,
+        previous_price=35000,size='12 inches',brand='HP')
+        self.user1 = User.objects.create_user(first_name='collins',last_name='kipkoech',email='colo@gmail.com')
+        self.order1 = Order.objects.create(user=self.user1,product_id=self.product1,delivered=1)
     
-#     def setUp(self):
-#         self.shop1= Shop.objects.create(merchant_name='collins',description='electronics shop')
-#         self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png',shop=self.shop1)
-#         self.sub_category1= Sub_Category.objects.create(name='laptops',description='brand new HP laptops',category=self.category1)
-#         self.product1 = Product.objects.create(item_name='laptop',description='HP corei5, 2GB RAM',price=40000,
-#         image='avatar.png',shipped_from='e-duka',color='black',quantity=0,sub_category=self.sub_category1,
-#         previous_price=35000,size='12 inches',brand='HP')
-#         self.user1 = User.objects.create_user(first_name='collins',last_name='kipkoech',email='colo@gmail.com')
-#         self.order1 = Order.objects.create(user=self.user1,product_id=self.product1,delivered=1)
+    def test_instance(self):
+        self.assertTrue(isinstance(self.order1,Order))
+
+    def test_save_order(self):
+        self.order1.save_order()
+        orders = Order.objects.all()
+        self.assertTrue(len(orders) > 0)
+
+    def test_delete_order(self):
+        self.order1.delete_order()
+        orders = Order.objects.all()
+        self.assertTrue(len(orders) - 1)
+
+class UserTestCase(TestCase):
+
+    def setUp(self):
+        self.user1 = User.objects.create_user(first_name='collins',last_name='kipkoech',email='colo@gmail.com')  
     
-#     def test_instance(self):
-#         self.assertTrue(isinstance(self.order1,Order))
-
-#     def test_save_order(self):
-#         self.order1.save_order()
-#         orders = Order.objects.all()
-#         self.assertTrue(len(orders) > 0)
-
-#     def test_delete_order(self):
-#         self.order1.delete_order()
-#         orders = Order.objects.all()
-#         self.assertTrue(len(orders) - 1)
-
-# class UserTestCase(TestCase):
-
-#     def setUp(self):
-#         self.user1 = User.objects.create_user(first_name='collins',last_name='kipkoech',email='colo@gmail.com')  
-    
-#     def test_instance(self):
-#         self.assertTrue(isinstance(self.user1,User))
+    def test_instance(self):
+        self.assertTrue(isinstance(self.user1,User))
 
 # ############################################################################
 #                     # URLS tests
