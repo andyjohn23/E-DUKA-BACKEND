@@ -6,7 +6,7 @@ from rest_framework import status
 import json
 from rest_framework.authtoken.models import Token
 from .serializer import ProfileSerializer
-from .views import ProductDetail
+from .views import ProductDetail,CommentsDetail
 
 class ShopTestCase(TestCase):
 
@@ -179,6 +179,10 @@ class TestUrls(SimpleTestCase):
     def test_product_detail_url(self):
         url = reverse('productdetails',kwargs={'pk':1})
         self.assertEqual(resolve(url).func.view_class,ProductDetail)
+
+    def test_product_detail_url(self):
+        url = reverse('commentdetails',kwargs={'pk':1})
+        self.assertEqual(resolve(url).func.view_class,CommentsDetail)
 
 
 
