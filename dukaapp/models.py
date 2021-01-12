@@ -72,9 +72,9 @@ class Product(models.Model):
     price = models.IntegerField()
     date_added = models.DateTimeField(auto_now_add=True)
     image = CloudinaryField('image')
-    image1 = CloudinaryField('image_2', blank=True, null=True)
-    image2 = CloudinaryField('image_3', blank=True, null=True)
-    image3 = CloudinaryField('image_4', blank=True, null=True)
+    image2 = CloudinaryField('image_2', blank=True, null=True)
+    image3 = CloudinaryField('image_3', blank=True, null=True)
+    image4 = CloudinaryField('image_4', blank=True, null=True)
     quantity = models.IntegerField(default=0)
     color = models.CharField(max_length=100, blank=True, null=True)
     previous_price = models.IntegerField(blank=True, null=True)
@@ -93,8 +93,6 @@ class Product(models.Model):
     def delete_product(self):
         self.delete()
 
-    class ReadonlyMeta:
-     readonly = ["shipped_from"]
 
 
 class UserManager(BaseUserManager):
