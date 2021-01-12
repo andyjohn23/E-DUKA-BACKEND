@@ -1,20 +1,7 @@
 language: python 
 
 env:
-  - SECRET_KEY='342s(s(!hsjd998sde8$=o4$3m!(o+kce2^97kp6#ujhi'
-  - DEBUG=True
-  - DB_NAME='duka'
-  - DB_USER='moringa'
-  - DB_PASSWORD='colo1234'
-  - DB_HOST='127.0.0.1'
-  - MODE='dev'
-  - ALLOWED_HOSTS='shitandi-duka.herokuapp.com'
-  - DISABLE_COLLECTSTATIC=1
-  - EMAIL_USE_TLS=True
-  - EMAIL_HOST='smtp.gmail.com'
-  - EMAIL_PORT=587
-  - EMAIL_HOST_USER='EMAIL'
-  - EMAIL_HOST_PASSWORD='EMAIL-PASSWORD'
+  - SECRET_KEY: "TEST"
 
 services: 
   - postgresql
