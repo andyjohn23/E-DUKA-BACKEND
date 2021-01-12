@@ -86,6 +86,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.item_name
+    
+    class ReadonlyMeta:
+        readonly = ["shipped_from"]
 
     def save_product(self):
         self.save()
@@ -93,8 +96,6 @@ class Product(models.Model):
     def delete_product(self):
         self.delete()
 
-    class ReadonlyMeta:
-     readonly = ["shipped_from"]
 
 
 class UserManager(BaseUserManager):
