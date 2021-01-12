@@ -245,7 +245,7 @@ class ProductSubcategory(ListAPIView):
     queryset= Product.objects.all()
     
     def get(self, request, category_id, *args, **kwargs): 
-        category = get_object_or_404(Category, pk=category_id)
+        sub_category = get_object_or_404(Category, pk=category_id)
         queryset = Product.objects.filter(sub_category=sub_category)
         if not queryset:
             message = {"error": "Product doesn’t exist"}
