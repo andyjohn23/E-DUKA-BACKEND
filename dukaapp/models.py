@@ -37,8 +37,6 @@ class Category(models.Model):
     category = models.CharField(max_length=100)
     image = CloudinaryField('image')
     card = CloudinaryField('card')
-    shop = models.ForeignKey(
-        "Shop", on_delete=models.CASCADE, related_name='shop')
 
     def __str__(self):
         return self.category
@@ -78,7 +76,7 @@ class Product(models.Model):
     quantity = models.IntegerField(default=0)
     color = models.CharField(max_length=100, blank=True, null=True)
     previous_price = models.IntegerField(blank=True, null=True)
-    shipped_from = models.CharField(max_length=100, default='e-duka')
+    shipped_from = models.ForeignKey("Shop", on_delete=models.CASCADE, related_name='shop')
     size = models.CharField(max_length=100, blank=True)
     brand = models.CharField(max_length=100, blank=True)
     sub_category = models.ForeignKey(

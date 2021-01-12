@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import *
@@ -239,46 +239,32 @@ class OrdersViewSet(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-# class ProductListAPIView(generics.ListAPIView):
-#     serializer_class = ProductSerializer
-#     # filter_backends = (filters.DjangoFilterBackend,)
-#     # filter_fields=("department__name",)
-    
-#     def get_serializer_context(self, *args, **kwargs):
-#         context =super(ProductListAPIView, self).get_serializer_context(*args, **kwargs)
-#         context['request'] = self.request
-#         return context
-
-#     def get_queryset(self, *args, **kwargs):
-#         requested_user = self.kwargs.get("email")
-#         if requested_user: 
-#             qs = Product.objects.filter(user__email=requested_user).order_by("date_added")
-#         else:
-#             my_following = self.request.user.profile.get_following()
-#             qs1 = Product.objects.filter(user__in=my_following)
-#             qs2 = Product.objects.filter(user=self.request.user)
-#             qs = (qs1 | qs2).order_by("date_added")
-#             print(self.request.GET)
-#         query = self.request.GET.get("q", None)
-#         if query is not None:
-#             qs = qs.filter(
-#                 Q(content__icontains=query) |
-#                 Q(user__email__icontains=query)
-#             )
-#         return qs 
 
 class ProductSubcategory(ListAPIView):
     serializer_class = ProductSerializer
     queryset= Product.objects.all()
     
     def get(self, request, category_id, *args, **kwargs): 
-        sub_category = get_object_or_404(Sub_Category, pk=category)
+        category = get_object_or_404(Category, pk=category_id)
         queryset = Product.objects.filter(sub_category=sub_category)
-        
         if not queryset:
-            message = {}
+            message = {"error": "Product doesn’t exist"}
             return Response(message, status.HTTP_404_NOT_FOUND)
         serializer = self.serializer_class(queryset, many=True,
+                                               context={'request': request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class ProductCategory(ListAPIView):
+    serializer_class = ProductSerializer
+    queryset= Product.objects.all()
+    def get(self, request, category_id, *args, **kwargs): 
+        category = get_object_or_404(Category, pk=category_id)
+        sub_category = Sub_Category.objects.filter(category=category)
+        products = []
+        for item in sub_category: 
+            product = list(Product.objects.filter(sub_category=item))
+            products.extend(product)
+        serializer = self.serializer_class(products, many=True,
                                                context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 

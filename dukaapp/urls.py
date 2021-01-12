@@ -45,7 +45,8 @@ urlpatterns = [
     path('orders/', views.OrdersViewSet.as_view()),
     path('categories/', views.CategorysViewSet.as_view()),
     path('shops/', views.ShopsViewSet.as_view()),
-    path('filter_sub_category/<int:pk>/', views.ProductSubcategory.as_view()),
+    path('filter_sub_category/<int:category_id>/', views.ProductSubcategory.as_view()),
+    path('filter_category/<int:category_id>/', views.ProductCategory.as_view()),
     
 ]
 ProductSubcategory
