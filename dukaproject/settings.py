@@ -55,9 +55,6 @@ INSTALLED_APPS = [
     'bootstrap3',
     'knox',
     'django_readonly_field',
-    'easy_thumbnails',
-    'filer',
-    'mptt',
     
     # 'django-filer',
 ]
