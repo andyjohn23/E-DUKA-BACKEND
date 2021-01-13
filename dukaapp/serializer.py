@@ -3,12 +3,11 @@ from .models import *
 from django.contrib.auth.hashers import make_password
 
 class ProfileSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
 
         model = Profile
-        fields = ('id','user','username','avatar', 'address', 'phone_number','region')
+        fields = ('id','username','user','avatar', 'address', 'phone_number','region')
 
 
 class UserSignupSerializer(serializers.ModelSerializer):
@@ -34,16 +33,16 @@ class ShopSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id','category','image','card','shop']
+        fields = ['id','category','image','card']
         
 class Sub_CategorySerializer(serializers.ModelSerializer):
     # category = serializers.CharField(source='category.category')
     class Meta:
         model = Sub_Category
-        fields = ['id','name','description','category']
+        fields = ['id','name','description','category','image2']
         
 class ProductSerializer(serializers.ModelSerializer):
-    # sub_category = serializers.CharField(source='sub_category.name')
+    # shipped_from = serializers.CharField(source='shipped_from.store_name')
     class Meta:
         model = Product
         fields = ['id','item_name','description','price','date_added','sub_category','quantity','color','previous_price','size','brand','image','image1','image2','image3']
@@ -55,6 +54,7 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = ['id','user','comment','product_id']
         
 class OrderSerializer(serializers.ModelSerializer):
+    product_id=serializers.ListField(child=serializers.CharField(max_length=32, allow_blank=True))
     class Meta:
         model = Order
-        fields = ['id','user','date','product_id']
+        fields = ['id','user','date','product_id','delivered']

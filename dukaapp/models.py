@@ -37,8 +37,6 @@ class Category(models.Model):
     category = models.CharField(max_length=100)
     image = CloudinaryField('image')
     card = CloudinaryField('card')
-    shop = models.ForeignKey(
-        "Shop", on_delete=models.CASCADE, related_name='shop')
 
     def __str__(self):
         return self.category
@@ -55,6 +53,7 @@ class Sub_Category(models.Model):
     description = models.TextField()
     category = models.ForeignKey(
         "Category", on_delete=models.CASCADE, related_name='cate')
+    image2 = CloudinaryField('image_2', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -72,13 +71,13 @@ class Product(models.Model):
     price = models.IntegerField()
     date_added = models.DateTimeField(auto_now_add=True)
     image = CloudinaryField('image')
-    image1 = CloudinaryField('image_2', blank=True, null=True)
-    image2 = CloudinaryField('image_3', blank=True, null=True)
-    image3 = CloudinaryField('image_4', blank=True, null=True)
+    image2 = CloudinaryField('image_2', blank=True, null=True)
+    image3 = CloudinaryField('image_3', blank=True, null=True)
+    image4 = CloudinaryField('image_4', blank=True, null=True)
     quantity = models.IntegerField(default=0)
     color = models.CharField(max_length=100, blank=True, null=True)
     previous_price = models.IntegerField(blank=True, null=True)
-    # shipped_from = models.CharField(max_length=100, default='e-duka')
+    shipped_from = models.ForeignKey("Shop", on_delete=models.CASCADE, related_name='shop')
     size = models.CharField(max_length=100, blank=True)
     brand = models.CharField(max_length=100, blank=True)
     sub_category = models.ForeignKey(
@@ -177,9 +176,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
 
-class Profile (models.Model):
+class Profile(models.Model):
     username = models.CharField(max_length=30)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='profile')
     avatar = CloudinaryField('avatar', null=True, blank=True)
     address = models.CharField(max_length=30)
     phone_number = models.IntegerField()
