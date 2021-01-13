@@ -50,6 +50,6 @@ To fix a bug or enhance an existing module, follow these steps:
 - Bihawa Mohamed
 
 ## License 
-[MIT](https://github.com/andyjohn23/E-DUKA-BACKEND/blob/master/LICENSE.md)
+[MIT](https://github.com/andyjohn23/E-DUKA-BACKEND/blob/master/LICENSE)
 
 
