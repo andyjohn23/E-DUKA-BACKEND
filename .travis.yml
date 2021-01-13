@@ -15,8 +15,8 @@ install:
   - pip install coveralls
 
 before_script:
-  - psql -c v 'create database travis_ci_test;' -u postgres
-  - psql -c v 'create database test;' -u postgres
+  - psql -c  'create database travis_ci_test;' -u postgres
+  - psql -c  'create database test;' -u postgres
   # - psql -c "CREATE USER $USER WITH PASSWORD 'colo1234';" # -U postgres
   # - psql -c "GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public to moringa;" # -U postgres
   # - psql -c "ALTER USER $USER CREATEDB;" # -U postgres
