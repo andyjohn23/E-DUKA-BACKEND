@@ -16,12 +16,17 @@ from rest_framework.generics import ListAPIView
 
 
 
+# class UserViewSet(viewsets.ModelViewSet):
+#     """
+#     A viewset for viewing and editing user instances.
+#     """
+#     serializer_class = UserSignupSerializer
+#     queryset = User.objects.all()
+    
 class UserViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing and editing user instances.
-    """
-    serializer_class = UserSignupSerializer
     queryset = User.objects.all()
+    # permission_classes = [IsAuthenticated,IsCustomerOrMerchantOrAdmin]
+    serializer_class = UserSignupSerializer
     
 class SignupAPIView(generics.GenericAPIView):
     serializer_class = UserSignupSerializer
@@ -55,6 +60,12 @@ class LogoutAPIView(generics.CreateAPIView):
             return Response(error_message,status=status.HTTP_400_BAD_REQUEST)
         return Response(success_message,status=status.HTTP_200_OK)
 
+
+class ProfileAPI(APIView):
+    def get(self, request, *args, **kwargs):
+        user = get_object_or_404(User, pk=kwargs['user_id'])
+        profile_serializer = ProfileSerializer(user.profile)
+        return Response(profile_serializer.data)
 class ProfileList(APIView):
     def get_profile(self, pk):
         try:

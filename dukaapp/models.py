@@ -173,9 +173,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
 
-class Profile (models.Model):
+class Profile(models.Model):
     username = models.CharField(max_length=30)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='profile')
     avatar = CloudinaryField('avatar', null=True, blank=True)
     address = models.CharField(max_length=30)
     phone_number = models.IntegerField()

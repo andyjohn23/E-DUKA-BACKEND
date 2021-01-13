@@ -3,12 +3,11 @@ from .models import *
 from django.contrib.auth.hashers import make_password
 
 class ProfileSerializer(serializers.ModelSerializer):
-    # user = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
 
         model = Profile
-        fields = ('id','user','username','avatar', 'address', 'phone_number','region')
+        fields = ('id','username','user','avatar', 'address', 'phone_number','region')
 
 
 class UserSignupSerializer(serializers.ModelSerializer):
