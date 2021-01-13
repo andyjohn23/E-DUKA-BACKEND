@@ -28,9 +28,7 @@ class ShopTestCase(TestCase):
 class CategoryTestCase(TestCase):
     
     def setUp(self):
-        self.shop1= Shop.objects.create(store_name='electonics shop',description='sells electronics',
-        address='0100',city='Nairobi',country='Kenya',phone_no='0700000000')
-        self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png',shop=self.shop1)
+        self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png')
         
     def test_instance(self):
         self.assertTrue(isinstance(self.category1,Category))
@@ -50,7 +48,7 @@ class SubCategoryTestCase(TestCase):
     def setUp(self):
         self.shop1= Shop.objects.create(store_name='electonics shop',description='sells electronics',
         address='0100',city='Nairobi',country='Kenya',phone_no='0700000000')
-        self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png',shop=self.shop1)
+        self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png')
         self.sub_category1= Sub_Category.objects.create(name='laptops',description='brand new HP laptops',category=self.category1)
     
     def test_instance(self):
@@ -71,12 +69,12 @@ class ProductTestCase(TestCase):
     def setUp(self):
         self.shop1= Shop.objects.create(store_name='electonics shop',description='sells electronics',
         address='0100',city='Nairobi',country='Kenya',phone_no='0700000000')
-        self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png',shop=self.shop1)
+        self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png')
         self.sub_category1= Sub_Category.objects.create(name='laptops',description='brand new HP laptops',category=self.category1)
         self.product1 = Product.objects.create(item_name='laptop',description='HP corei5, 2GB RAM',price=40000,
-        image='avatar.png',image1='avatar.png',image2='avatar.png',image3='avatar.png'
+        image='avatar.png',image2='avatar.png',image3='avatar.png',image4='avatar.png'
         ,color='black',quantity=0,sub_category=self.sub_category1,
-        previous_price=35000,size='12 inches',brand='HP')
+        previous_price=35000,size='12 inches',brand='HP',shipped_from=self.shop1)
     
     def test_instance(self):
         self.assertTrue(isinstance(self.product1,Product))
@@ -96,11 +94,12 @@ class CommentTestCase(TestCase):
     def setUp(self):
         self.shop1= Shop.objects.create(store_name='electonics shop',description='sells electronics',
         address='0100',city='Nairobi',country='Kenya',phone_no='0700000000')
-        self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png',shop=self.shop1)
+        self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png')
         self.sub_category1= Sub_Category.objects.create(name='laptops',description='brand new HP laptops',category=self.category1)
         self.product1 = Product.objects.create(item_name='laptop',description='HP corei5, 2GB RAM',price=40000,
-        image='avatar.png',color='black',quantity=0,sub_category=self.sub_category1,
-        previous_price=35000,size='12 inches',brand='HP')
+        image='avatar.png',image2='avatar.png',image3='avatar.png',image4='avatar.png'
+        ,color='black',quantity=0,sub_category=self.sub_category1,
+        previous_price=35000,size='12 inches',brand='HP',shipped_from=self.shop1)
         self.user1 = User.objects.create_user(first_name='collins',last_name='kipkoech',email='colo@gmail.com')
         self.comment1 = Comment.objects.create(user=self.user1,product_id=self.product1)
     
@@ -123,11 +122,12 @@ class OrderTestCase(TestCase):
     def setUp(self):
         self.shop1= Shop.objects.create(store_name='electonics shop',description='sells electronics',
         address='0100',city='Nairobi',country='Kenya',phone_no='0700000000')
-        self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png',shop=self.shop1)
+        self.category1= Category.objects.create(category='electronics',image='avatar.png',card='card.png')
         self.sub_category1= Sub_Category.objects.create(name='laptops',description='brand new HP laptops',category=self.category1)
         self.product1 = Product.objects.create(item_name='laptop',description='HP corei5, 2GB RAM',price=40000,
-        image='avatar.png',color='black',quantity=0,sub_category=self.sub_category1,
-        previous_price=35000,size='12 inches',brand='HP')
+        image='avatar.png',image2='avatar.png',image3='avatar.png',image4='avatar.png'
+        ,color='black',quantity=0,sub_category=self.sub_category1,
+        previous_price=35000,size='12 inches',brand='HP',shipped_from=self.shop1)
         self.user1 = User.objects.create_user(first_name='collins',last_name='kipkoech',email='colo@gmail.com')
         self.order1 = Order.objects.create(user=self.user1,product_id=self.product1,delivered=1)
     
@@ -176,14 +176,14 @@ class UrlsTestCase(TestCase):
         response = self.client.get(reverse('shops'))
         self.assertEqual(response.status_code,200)
 
-class TestUrls(SimpleTestCase):
-    def test_product_detail_url(self):
-        url = reverse('productdetails',kwargs={'pk':1})
-        self.assertEqual(resolve(url).func.view_class,ProductDetail)
+# class TestUrls(SimpleTestCase):
+#     def test_product_detail_url(self):
+#         url = reverse('productdetails',kwargs={'pk':1})
+#         self.assertEqual(resolve(url).func.view_class,ProductDetail)
 
-    def test_product_detail_url(self):
-        url = reverse('commentdetails',kwargs={'pk':1})
-        self.assertEqual(resolve(url).func.view_class,CommentsDetail)
+#     def test_product_detail_url(self):
+#         url = reverse('commentdetails',kwargs={'pk':1})
+#         self.assertEqual(resolve(url).func.view_class,CommentsDetail)
 
 
 
