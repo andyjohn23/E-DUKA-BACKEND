@@ -15,9 +15,9 @@ install:
   - pip install coveralls
 
 before_script:
-  - psql -c "CREATE USER moringa WITH PASSWORD 'colo1234';" # -U postgres
+  - psql -c "CREATE USER $USER WITH PASSWORD 'colo1234';" # -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public to moringa;" # -U postgres
-  - psql -c "ALTER USER moringa CREATEDB;" # -U postgres
+  - psql -c "ALTER USER $USER CREATEDB;" # -U postgres
   - psql -c "CREATE DATABASE duka;" #-U postgres
   - pip install coverage
 
