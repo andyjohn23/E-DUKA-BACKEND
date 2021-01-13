@@ -47,7 +47,7 @@ To fix a bug or enhance an existing module, follow these steps:
 - Joseph Shitandi
 - Andrew John
 - Collins Kipkoech
--Bihawa Mohamed
+- Bihawa Mohamed
 
 ## License 
 [MIT](https://github.com/andyjohn23/E-DUKA-BACKEND/blob/master/LICENSE.md)
