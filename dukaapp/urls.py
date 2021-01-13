@@ -36,7 +36,7 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('logout/',views.LogoutAPIView.as_view(),name='logout'),
-    path('profile/<pk>/',views.ProfileList.as_view()),
+    # path('profile/<pk>/',views.ProfileList.as_view()),
     path('', include(router.urls)),
     path('products/', views.ProductViewSet.as_view(),name='products'),
     path('products/<int:pk>/', views.ProductDetail.as_view(),name='productdetails'),
