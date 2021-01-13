@@ -54,7 +54,6 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = ['id','user','comment','product_id']
         
 class OrderSerializer(serializers.ModelSerializer):
-    product_id=serializers.ListField(child=serializers.CharField(max_length=32, allow_blank=True))
     class Meta:
         model = Order
-        fields = ['id','user','date','product_id','delivered']
+        fields = '__all__'

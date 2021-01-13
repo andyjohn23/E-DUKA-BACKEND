@@ -21,7 +21,7 @@ class Shop(models.Model):
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
-    phone_no = models.IntegerField()
+    phone_no = models.CharField(max_length=100)
 
     def __str__(self):
         return self.store_name
@@ -214,8 +214,8 @@ class Order(models.Model):
         "Product", on_delete=models.CASCADE, related_name='order')
     delivered = models.BooleanField()
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.date
 
     def save_order(self):
         self.save()

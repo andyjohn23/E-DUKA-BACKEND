@@ -11,6 +11,8 @@ from django.http import HttpResponse, Http404
 import json
 from rest_framework import filters  
 from rest_framework.generics import ListAPIView
+# from filer.models import mixins
+from rest_framework import mixins
 
 # Create your views here.
 
@@ -61,11 +63,19 @@ class LogoutAPIView(generics.CreateAPIView):
         return Response(success_message,status=status.HTTP_200_OK)
 
 
-class ProfileAPI(APIView):
+class ProfileViewSet(viewsets.ModelViewSet):
+    """
+    A viewset for viewing and editing profile instances.
+    """
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()
+    
     def get(self, request, *args, **kwargs):
         user = get_object_or_404(User, pk=kwargs['user_id'])
         profile_serializer = ProfileSerializer(user.profile)
         return Response(profile_serializer.data)
+    
+    
 class ProfileList(APIView):
     def get_profile(self, pk):
         try:
@@ -226,28 +236,11 @@ class CommentsDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class OrderViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing and editing category instances.
-    """
+class OrdersViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
-
-class OrdersViewSet(APIView):
-    def get(self, request, format=None):      
-        orders = Order.objects.all()
-        serializer = OrderSerializer(orders, many=True)
-        return Response(serializer.data)
     
-    def post(self, request, format=None):
-        permission_classes = [IsAuthenticated,IsCustomerOrMerchantOrAdmin]
-        serializer = OrderSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-
 class ProductSubcategory(ListAPIView):
     serializer_class = ProductSerializer
     queryset= Product.objects.all()
