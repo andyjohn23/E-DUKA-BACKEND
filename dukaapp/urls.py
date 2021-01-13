@@ -49,5 +49,5 @@ urlpatterns = [
     path('category_filter/<int:category_id>/', views.SubcategoryCategory.as_view()),
     path('filter_category/<int:category_id>/', views.ProductCategory.as_view()),
     path('search/', views.ProductSearchApiView.as_view()),
-    # path('users/<user_id>/profile/', user_profile, name='profile'),
+    # path('user/', views.UserList.as_view()),
 ]

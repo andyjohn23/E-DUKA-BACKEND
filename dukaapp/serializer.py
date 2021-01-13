@@ -2,6 +2,37 @@ from rest_framework import serializers
 from .models import *
 from django.contrib.auth.hashers import make_password
 
+
+# class UserSerializer(serializers.ModelSerializer):
+#     profile = ProfileSerializer(required=True)
+#     class Meta:
+#         model = User
+#         fields = '__all__'
+
+#     def create(self, validated_data):
+
+#         # create user 
+#         user = User.objects.create(
+#             email = validated_data['email'],
+#             first_name = validated_data['first_name'],
+#             last_name = validated_data['last_name'],
+#             date_joined = validated_data['date_joined'],
+#             user_type = validated_data['user_type'],
+#         )
+
+#         profile_data = validated_data.pop('profile')
+#         # create profile
+#         profile = Profile.objects.create(
+#             user = user,
+#             username = profile_data['username'],
+#             avatar = profile_data['avatar'],
+#             address = profile_data['address'],
+#             phone_number = profile_data['phone_number'],
+#             region = profile_data['region'],
+#         )
+
+#         return user
+
 class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
